@@ -56,7 +56,7 @@ module.exports = function(db, passport, isLoggedIn) {
   // FACEBOOK ROUTES =====================
   // =====================================
   // route for facebook authentication and login
-  router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+  router.get('/auth/facebook', passport.authenticate('facebook'));
 
   // handle the callback after facebook has authenticated the user
   router.get('/auth/facebook/callback',
