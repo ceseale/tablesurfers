@@ -4,14 +4,14 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.JSON'),
     concat: {
       src: [],
-      dest: 
+      dest: 'x'
     },
     mochaTest: {
       test: {
         options: {
           reporter: 'spec'
         },
-        src: []
+        src: ['server/server-spec/*.js']
       }
     },
     uglify: {
