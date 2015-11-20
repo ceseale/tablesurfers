@@ -9,11 +9,13 @@ describe("Meals and user insertion to database successful", function() {
   it("Should insert new user to user database", function() { //no argument needed here bluebird thing when using mocha
     //remember to return the promise inside- if all corrct the test will pass if not then the test will fail and no catch needed
 
-    return request({method: "POST", uri: "http://127.0.0.1:3000/api/users", json: {firstName: "Anna", lastName: "Rogers"}})
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/user", body: {displayName: "Roger Fung", facebookId: "1212"}, json: true})
     .then(function (data) {
       console.log("SUCCESFUL. HERE'S THE DATA: ", data);
       //CHECK DATA OBJECTS PROPERTIES
-      expect(data.firstName).to.equal("Anna");
+      // need to GET to check this stuff
+      expect(data.name).to.equal("Roger Fung");
+      expect(data.facebookId).to.equal(1212);
     }).catch(function(err){
       console.log("THIS IS AN ERROR: ", err);
     });

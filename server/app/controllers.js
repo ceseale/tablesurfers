@@ -6,15 +6,15 @@ module.exports = {
   user: {
 
     get: function () {
-      return database.Users.findAll()
+      return database.User.findAll()
       .then(function (users) {
         return users;
       });
     },
 
     post: function (data) {
-      return database.Users.create({
-        username: data.displayName,
+      return database.User.create({
+        name: data.displayName,
         facebookId: data.facebookId
       }).then(function (message) {
         return message;
@@ -23,13 +23,13 @@ module.exports = {
 
     //for a user joining a meal
     joinMeal: function(data) {
-      return database.Users.find({ where: {firstName: data.firstName, lastName: data.lastName} })
+      return database.User.find({ where: {firstName: data.firstName, lastName: data.lastName} })
       .then(function(user) {
         //this should get the user data that matched the user details passed
-        return database.Meals.find({ where: {description: data.description} })
+        return database.Meal.find({ where: {description: data.description} })
         .then(function(meal) {
           //meal should be an object containing the table input for this meal
-          return database.Attendees.create({
+          return database.Attendee.create({
             UserId: user.id,
             MealId: meal.id
           })
