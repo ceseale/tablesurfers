@@ -1,13 +1,8 @@
-// TODO: 
-// create a file in this folder called authKeys.js
-// copy the content of this file into authKeys.js
-// replace relevant codes with our fb and yelp keys
-
 module.exports = {
 
   facebookAuth: {
-    'clientID': 'OUR_CLIENT_ID',
-    'clientSecret': 'OUR_CLIENT_SECRET',
+    'clientID': 'FB_KEY',
+    'clientSecret': 'FB_SECRET',
     'callbackURL': 'http://localhost:3000/auth/facebook/callback'
   },
   oauth: {
@@ -18,5 +13,4 @@ module.exports = {
    consumerSecret: 'Msd-D6cB8c33A-o_ahKYgU-kGHc',
    tokenSecret: 'CXnmG_Zf_FjHpqAhPFvRIW0ppwE'
   }
-
 };
