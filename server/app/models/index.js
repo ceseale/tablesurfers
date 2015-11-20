@@ -1,8 +1,8 @@
 //This file would be used to use sequelize on heroku
 
 if (!global.hasOwnProperty('db')) {
-  var Sequelize = require('sequelize')
-    , sequelize = null
+  var Sequelize = require('sequelize'),
+  sequelize = null;
 
 
   //figure out database color--
@@ -12,7 +12,7 @@ if (!global.hasOwnProperty('db')) {
       dialect:  'postgres',
       protocol: 'postgres',
       logging:  true //false
-    })
+    });
   } else {
     // the application is executed on the local machine ... use mysql
     sequelize = new Sequelize("tablesurfer", "admin", "admin", {
@@ -118,7 +118,7 @@ if (!global.hasOwnProperty('db')) {
     Attendees: Attendees
 
     // add your other models here
-  }
+  };
 }
 
-module.exports = global.db
+module.exports = global.db;
