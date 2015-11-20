@@ -6,7 +6,8 @@ var n = require('nonce')();
 var qs = require('querystring');
 var Promise = require('bluebird');
 
-var auth = require('../services/auth.js');
+var auth = require('./../../config/auth.js');
+var db = require('./../../config/db.js');
 
 var request_yelp = function(set_parameters, callback) {
   // set_parameters: object with params to search
@@ -51,13 +52,21 @@ module.exports = function(db, passport, isLoggedIn) {
 
   var router = express.Router();
 
-  router.get('/login', passport.authenticate('facebook', { scope: 'email' }));
+  // =====================================
+  // FACEBOOK ROUTES =====================
+  // =====================================
+  // route for facebook authentication and login
+  router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
-  router.get('/login/callback', passport.authenticate('facebook', { failureRedirect: '/' }), function (req, res) {
-    res.redirect('/?' + JSON.stringify(req.user.dataValues.username));
-  });
+  // handle the callback after facebook has authenticated the user
+  router.get('/auth/facebook/callback',
+      passport.authenticate('facebook', {
+          successRedirect : '/profile',
+          failureRedirect : '/'
+  }));
 
-  router.get('/logout', function (req, res) {
+  // route for logging out
+  router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
   });
@@ -85,3 +94,13 @@ module.exports = function(db, passport, isLoggedIn) {
   return router;
 
 };
+
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated())
+    return next();
+  // if they aren't redirect them to the home page
+  res.redirect('/');
+}

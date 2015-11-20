@@ -1,6 +1,6 @@
 var express = require('express');
 var request = require('request');
-var classes = require('./../classes/classes');
+var classes = require('./../../classes/classes');
 
 
 module.exports = function(dbController, passport, isLoggedIn) {
@@ -80,7 +80,6 @@ module.exports = function(dbController, passport, isLoggedIn) {
       console.log('err getting user data:', err);
       res.status(500).send(err);
     });
-
   });
 
   // params usage

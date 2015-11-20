@@ -1,4 +1,4 @@
-var database = require('./db');
+var database = require('../config/db');
 var Promise = require('bluebird');
 var objectify = require('./../classes/controllerClasses');
 
@@ -46,7 +46,7 @@ module.exports = {
 
     // TODO: Perhaps rename to getAll?
     get: function (data) {
-      return database.Meals.findAll({ include: [database.Users, database.Restaurants]})
+      return database.Meal.findAll({ include: [database.User, database.Restaurant]})
         .then(function (meals) {
           //use the bluebird promise functions
           return Promise.map(meals, function(meal) {

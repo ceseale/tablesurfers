@@ -24,7 +24,7 @@
       })
       // TODO: perhaps use URL params '/:username' to grab account details
       .state('user', {
-        url: '/user',
+        url: '/user/:name',
         templateUrl: 'app/user/user.html',
         controller: 'UserCtrl'
       })

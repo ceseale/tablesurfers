@@ -1,26 +1,33 @@
 var Sequelize = require("sequelize");
+var connectionString = process.env.DATABASE_URL || 'postgres://admin:admin@localhost:5432/tablesurfer';
+var db = new Sequelize(connectionString);
 
-//Unsure if we need password, come back to this
-
-var db = new Sequelize("tablesurfer", "admin", "admin", {
-  dialect: "postgres", // or 'sqlite', mysql', 'mariadb'
-  port: 5432 //(for postgres)
-});
-
-var Users = db.define("Users", {
+var User = db.define("User", {
   //here we will have to figure out the data from facebook on authentication
-  username: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false
   },
   facebookId: {
+    type: Sequelize.BIGINT,
+    allowNull: true
+  },
+  token: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  profilePic: {
     type: Sequelize.STRING,
     allowNull: true
   }
   
 });
 
-var Meals = db.define("Meals", {
+var Meal = db.define("Meal", {
   title: {
     type: Sequelize.STRING,
     allowNull: false
@@ -39,11 +46,11 @@ var Meals = db.define("Meals", {
   }
 });
 //create Users Users foreign key for meal
-Users.hasOne(Meals);
-Meals.belongsTo(Users);
+User.hasOne(Meal);
+Meal.belongsTo(User);
 
 
-var Restaurants = db.define("Restaurants", {
+var Restaurant = db.define("Restaurant", {
   name: {
     type: Sequelize.STRING,
     allowNull: false
@@ -68,30 +75,30 @@ var Restaurants = db.define("Restaurants", {
 });
 
 //this creates restaurant foreign key for meal
-Restaurants.hasOne(Meals);
-Meals.belongsTo(Restaurants);
+Restaurant.hasOne(Meal);
+Meal.belongsTo(Restaurant);
 
-var Genres = db.define("Genres", {
+var Genre = db.define("Genre", {
   name: {
     type: Sequelize.STRING,
     allowNull: false
   }
 });
 
-Genres.hasOne(Restaurants);
-Restaurants.belongsTo(Genres);
+Genre.hasOne(Restaurant);
+Restaurant.belongsTo(Genre);
 
-var Attendees = db.define("Attendees", {
+var Attendee = db.define("Attendee", {
 });
 
-Users.belongsToMany(Meals, {through: 'Attendees'});
-Meals.belongsToMany(Users, {through: 'Attendees'});
+User.belongsToMany(Meal, {through: 'Attendees'});
+Meal.belongsToMany(User, {through: 'Attendees'});
 
 
 
-db.sync();
+db.sync({force:true});
 
-exports.Meals = Meals;
-exports.Users = Users;
-exports.Restaurants = Restaurants;
-exports.Attendees = Attendees;
+exports.Meal = Meal;
+exports.User = User;
+exports.Restaurant = Restaurant;
+exports.Attendee = Attendee;
