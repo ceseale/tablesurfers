@@ -18,11 +18,15 @@ module.exports = function (passport) {
   // passport needs ability to serialize and deserialize users out of session
   
   // used to serialize the user for the session
+  // specifies what to use to identify the user (facebookId)
+  // used upon login only
   passport.serializeUser(function (user, done) {
     done(null, user.facebookId);
   });
   
-  // used to serialize the user
+  // used to deserialize the user
+  // called when authenticating on each page
+  // takes facebookId and returns user again
   passport.deserializeUser(function (facebookId, done) {
     db.User.find({ where: {facebookId: facebookId} })
     .then(function (user) {
