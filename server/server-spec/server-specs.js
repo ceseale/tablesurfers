@@ -9,9 +9,9 @@ describe("Meals and user insertion to database successful", function() {
   it("Should insert new user to user database", function() { //no argument needed here bluebird thing when using mocha
     //remember to return the promise inside- if all corrct the test will pass if not then the test will fail and no catch needed
 
-    return request({method: "POST", uri: "http://127.0.0.1:4568/api/users", json: {firstName: "Anna", lastName: "Rogers"}})
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/users", json: {firstName: "Anna", lastName: "Rogers"}})
     .then(function (data) {
-      console.log("SUCCESFUL. HERE'S THE DATA: ", data); 
+      console.log("SUCCESFUL. HERE'S THE DATA: ", data);
       //CHECK DATA OBJECTS PROPERTIES
       expect(data.firstName).to.equal("Anna");
     }).catch(function(err){
