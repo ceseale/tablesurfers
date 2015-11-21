@@ -77,7 +77,8 @@ var Restaurant = db.define("Restaurant", {
 
 });
 
-Restaurant.hasMany(Meal, {as: "Attendee"});
+Restaurant.hasMany(Meal);
+Meal.belongsTo(Restaurant);
 
 db.sync({force:true});
 
