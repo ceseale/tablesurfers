@@ -14,13 +14,13 @@ describe("User insertion to database successful", function() {
       facebookId: '1212'
     };
 
-  beforeEach(function () {
+  before(function () {
     sequelize = new Sequelize("tablesurfer", "admin", "admin", {dialect: 'postgres'});
-    console.log("BEFORE EACH IS RUNNING."); 
+    console.log("BEFORE IS RUNNING."); 
     sequelize.sync({force:true})
     .then(function(){
     }).catch(function(err){
-      console.log('err', err);
+      console.log('BEFORE err');
     });
   });
 
@@ -31,7 +31,7 @@ describe("User insertion to database successful", function() {
         return db.User.findById(1);
       })
       .then(function (user) {
-        console.log("Get User: ", user); 
+        console.log("Get User"); 
         expect(user.name).to.equal("Roger Fung");
         done();
       }).catch(function (err) {
@@ -53,9 +53,9 @@ describe("User insertion to database successful", function() {
        
       return request(options)
         .then(function (resp) {
-            console.log('GETTING RESPONSE: ', resp);
+            console.log('GETTING RESPONSE: ------>', resp);
             expect(resp[0].name).to.equal("Roger Fung");
-            expect(resp[0].facebookId).to.equal('1211112');
+            expect(resp[0].facebookId).to.equal('1212');
             done();
         })
         .catch(function (err) {

@@ -33,7 +33,7 @@ describe("Meals insertion to database successful", function() {
     .then(function(data){
       done();
     }).catch(function(err){
-      console.log(err);
+      console.log("BEFORE EACH ERR");
     });
 
   });
@@ -44,6 +44,7 @@ describe("Meals insertion to database successful", function() {
     .then(function (data) {
 
     }).catch(function(err){
+      console.log('400 ERR')
       expect(err.statusCode).to.equal(400);
       done();
     });
@@ -57,7 +58,7 @@ describe("Meals insertion to database successful", function() {
       expect(err.statusCode).to.equal(201);
       done();
     }).catch(function(err){
-
+      console.log("201 ERR"); 
     });
     
   });
@@ -70,7 +71,7 @@ describe("Meals insertion to database successful", function() {
       expect(err.statusCode).to.equal(400);
       done();
     }).catch(function(err){
-      console.log(err);
+      console.log("POST PERSIST ERROR");
     });
     
   });
@@ -85,7 +86,7 @@ describe("Meals insertion to database successful", function() {
       expect(data[0].title).to.equal('Hello :>');
       done();
     }).catch(function(err){
-      console.log(err);
+      console.log("SELECT BY ID ERR");
     });
     
   });
@@ -106,7 +107,7 @@ describe("Meals insertion to database successful", function() {
       })
     })
     .catch(function(err){
-      console.log(err);
+      console.log("GET ALL MEALS ERR");
     });
     
   });

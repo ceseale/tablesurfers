@@ -71,7 +71,7 @@ module.exports = {
 
     getOne: function (data) {
 
-      return database.Meals.find({ where: {id: data}, include: [database.Users, database.Restaurants] })
+      return database.Meal.find({ where: {id: data}, include: [database.User, database.Restaurants] })
         .then(function (meal) {
           return meal.getUsers().then(function (result) {
             var mealObj = {meal: meal, Attendees: result};
@@ -83,11 +83,11 @@ module.exports = {
     },
 
     post: function (data) {
-      return database.Users.findOrCreate({where: {username: data.username}})
+      return database.User.findOrCreate({where: {username: data.username}})
         .then(function (user) {
-          return database.Restaurants.findOrCreate({where: {name: data.restaurant}, defaults:  {name: data.restaurant, address: data.address, contact: data.contact, lat: data.latitude, lng: data.longitude}})
+          return database.Restaurant.findOrCreate({where: {name: data.restaurant}, defaults:  {name: data.restaurant, address: data.address, contact: data.contact, lat: data.latitude, lng: data.longitude}})
             .then(function (restaurant) {
-              return database.Meals.create({
+              return database.Meal.create({
                 title: data.title,
                 date: data.date,
                 time: data.time,
