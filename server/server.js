@@ -33,6 +33,8 @@ var dbController = require('./app/controllers');
 
 // require the routes file
 var inRouter = require('./app/routes/in');
+
+
 var outRouter = require('./app/routes/out');
 
 // require isLoggedIn method so we can use it in routes to check if user is logged in
@@ -41,17 +43,16 @@ var isLoggedIn = require('./app/isLoggedIn');
 inRouter = inRouter(dbController, passport, isLoggedIn);
 outRouter = outRouter(dbController, passport, isLoggedIn);
 
-app.use('/api/in', inRouter);
+app.use('/api', inRouter);
 
 app.get('/auth/facebook/callback', function (req, res) {
-  res.redirect('/api/out'+req.url);
+  res.redirect('/api'+req.url);
 });
 
-app.use('/api/out', outRouter);
+app.use('/auth', outRouter);
 
 app.get('/profile', function (req, res) {
   res.redirect('http://localhost:3000/#/user/'+req.user.name);
-  // res.status(200).send(req.user.name);
 });
 
 app.use(express.static(path.join(__dirname, '/../client')));
