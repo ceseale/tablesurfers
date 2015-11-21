@@ -16,6 +16,7 @@ module.exports = {
     },
 
     post: function (data) {
+      console.log("POST DATA---->", data); 
       return database.User.create({
         name: data.name,
         facebookId: data.facebookId

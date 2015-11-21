@@ -42,7 +42,7 @@ module.exports = {
   },
 
   Join : function(body) {
-    this.name = body.displayName;
+    this.name = body.name;
     this.description = body.description;
   },
 

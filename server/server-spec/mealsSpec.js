@@ -9,7 +9,7 @@ var db = require('../config/db');
 
 
 
-describe("Meals insertion to database successful", function() {
+describe("Meals insertion to database", function() {
 
   var obj = {};
   obj.restaurant = {};

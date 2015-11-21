@@ -20,7 +20,7 @@ module.exports = function(dbController, passport, isLoggedIn) {
     //else go onto the queries
     dbController.meals.post(meal)
     .then(function(data){
-      res.status(200).send(data);
+      res.status(201).send(data);
     });
 
   });
@@ -91,16 +91,23 @@ module.exports = function(dbController, passport, isLoggedIn) {
 //------------------------------------------------------//
   router.post('/user', function(req, res) {
 
-    // var newUser = new classes.AddUser(req.body);
-    // console.log("NEWUSER---->", newUser);
-    dbController.user.post(req.body)
-    .then(function(data) {
-      res.status(200).send(data);
-    })
-    .catch(function(err) {
-      console.log('err posting user data:', err);
-      res.status(500).send(err);
-    });
+    if (!req.body.name) {
+      console.log("REQUEST TO /USER:", req.body);
+      res.sendStatus(400);
+    } else {
+      // var newUser = new classes.AddUser(req.body);
+      // console.log("NEWUSER---->", req.body);
+      dbController.user.post(req.body)
+      .then(function(data) {
+        res.sendStatus(201);
+      })
+      .catch(function(err) {
+        // console.log('err posting user data:', err);
+        // if else statement could possibly go here too
+        res.status(500).send(err); // update to sendStatus
+      });
+      
+    }
 
   });
 
