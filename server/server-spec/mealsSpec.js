@@ -19,12 +19,12 @@ describe("Meals insertion to database successful", function() {
   obj.time = "2:00pm";
   obj.description = "Testing 123...";
   obj.restaurant.name = "Super Duper";
-  obj.restaurant.address = "Hot Cakes Lane USA"
-  obj.restaurant.contact = "555-555-5555"
+  obj.restaurant.address = "Hot Cakes Lane USA";
+  obj.restaurant.contact = "555-555-5555";
   obj.restaurant.coordinate = {};
-  obj.restaurant.coordinate.lat = "0"
-  obj.restaurant.coordinate.lng = "0"
-  obj.username = "Colin"
+  obj.restaurant.coordinate.lat = "0";
+  obj.restaurant.coordinate.lng = "0";
+  obj.username = "Colin";
 
 
   beforeEach(function (done){
@@ -34,9 +34,9 @@ describe("Meals insertion to database successful", function() {
       done();
     }).catch(function(err){
       console.log(err);
-    })
+    });
 
-  })
+  });
 
   it("Should have return an error (400) status for sending wrong data", function (done) { 
  
