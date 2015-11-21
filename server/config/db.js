@@ -23,8 +23,15 @@ var User = db.define("User", {
   profilePic: {
     type: Sequelize.STRING,
     allowNull: true
+  },
+  gender: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  job: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
-  
 });
 
 var Meal = db.define("Meal", {
@@ -43,6 +50,10 @@ var Meal = db.define("Meal", {
   description: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  theme: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
 });
 //create Users Users foreign key for meal
@@ -70,7 +81,7 @@ var Restaurant = db.define("Restaurant", {
     type: Sequelize.FLOAT,
     allowNull: false
   },
-  Genre: {
+  cuisine: {
     type: Sequelize.STRING,
     allowNull: true
   }
