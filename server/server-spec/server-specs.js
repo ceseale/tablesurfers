@@ -9,7 +9,7 @@ var Sequelize = require("sequelize");
 
 describe("User insertion to database successful", function() {
 
-  beforeEach(function (done) {
+  beforeEach(function () {
     sequelize = new Sequelize("tablesurfer", "admin", "admin", {dialect: 'postgres'});
     console.log("BEFORE EACH IS RUNNING."); 
     sequelize.sync({force:true})
@@ -17,7 +17,6 @@ describe("User insertion to database successful", function() {
     }).catch(function(err){
       console.log('err', err);
     });
-    done();
   });
 
   it("Should post new user to user database", function(done) { //no argument needed here bluebird thing when using mocha
