@@ -7,16 +7,18 @@ var db = require('../config/db');
 var Sequelize = require("sequelize");
 
 
-describe("User insertion to database successful", function() {
+describe("User insertion to database", function() {
 
+  // Tests are self contained, so though we need resolveWithFullResponse to test here, we do not need to replicate it in actual server/db
   var obj = {
       name: "Roger Fung",
       facebookId: '1212'
-    };
+  };
+
 
   before(function () {
     sequelize = new Sequelize("tablesurfer", "admin", "admin", {dialect: 'postgres'});
-    console.log("BEFORE IS RUNNING."); 
+    console.log("BEFORE IS RUNNING.");
     sequelize.sync({force:true})
     .then(function(){
     }).catch(function(err){
@@ -31,7 +33,7 @@ describe("User insertion to database successful", function() {
         return db.User.findById(1);
       })
       .then(function (user) {
-        console.log("Get User"); 
+        console.log("Get User");
         expect(user.name).to.equal("Roger Fung");
         done();
       }).catch(function (err) {
@@ -40,7 +42,7 @@ describe("User insertion to database successful", function() {
 
   });
   
-  it("Should retrieve new user to user database", function(done) { //no argument needed here bluebird thing when using mocha
+  it("Should retrieve new user to user database", function(done) {
     //remember to return the promise inside- if all corrct the test will pass if not then the test will fail and no catch needed
       console.log("RUNNING SECOND TEST: GET USER"); 
       var options = {
@@ -52,10 +54,10 @@ describe("User insertion to database successful", function() {
       };
        
       return request(options)
-        .then(function (resp) {
-            console.log('GETTING RESPONSE: ------>', resp);
-            expect(resp[0].name).to.equal("Roger Fung");
-            expect(resp[0].facebookId).to.equal('1212');
+        .then(function (res) {
+            console.log('GETTING RESPONSE: ------>');
+            expect(res[0].name).to.equal("Roger Fung"); // first entry in DB
+            expect(res[0].facebookId).to.equal('1212');
             done();
         })
         .catch(function (err) {
@@ -80,36 +82,17 @@ describe("User insertion to database successful", function() {
   it("Should return a 201 when data is successfully added to database", function (done) {
     console.log("RUNNING FOURTH TEST: SHOULD RETURN 201 FOR CORRECT POST TO USER"); 
 
-    return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/user", body: obj, json: true})
-    .then(function (data) {
-      expect(err.statusCode).to.equal(201);
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/user", body: obj, json: true, resolveWithFullResponse: true})
+    // this allows us to access response.statusCode in tests below. Other props can be found on response.body
+    .then(function (res) {
+      console.log("STATUS IS:", res);
+      expect(res.statusCode).to.equal(201);
       done();
     }).catch(function(err){
-      console.error("POST SHOULD RETURN 201, BUT RECEIVES ERROR");
+      console.error("POST SHOULD RETURN 201, BUT RECEIVES ERROR: ", err);
     });
     
   });
 
 
 });
-
-  // it("Should insert new meal to database", function(done) {
-  //   // request({method: "POST", uri: "http://127.0.0.1:4568/api/users", json: {name: "Anna"}});
-  //   request({method: "POST", uri: "http://127.0.0.1:4568/api/meals", json: {date: new Date(), time: new Date(), attendees: 5, description: "new meal", user: "Anna"}}, function);
-
-  //   //query the Meals database for where the desciption is "new meal" and check if the attendees is 5
-  //   var query = function () {
-  //     database.Meals.findOne({ description: "new meal" })
-  //     .then(function (users) {
-  //       //check what console.logging
-  //       console.log('meals return object in test 2:', users);
-  //       expect(users.attendees).to.equal(5);
-  //     });
-  //   };
-    // }
-
-
-
-
-
-

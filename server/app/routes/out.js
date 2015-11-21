@@ -97,7 +97,9 @@ module.exports = function(db, passport, isLoggedIn) {
 
 
 // route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
+function isLoggedIn(req, res, next) { // this is the only route that is middleware, and therefore needs to use the next parameter. 
+  // "next" will be the last function in a router.get/post etc request, and isLoggedIn will be added as a middle param
+  // e.g. router.get('/accounts', isLoggedIn, function(req, res) {...});
   // if user is authenticated in the session, carry on
   if (req.isAuthenticated())
     return next();
