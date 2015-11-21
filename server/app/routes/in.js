@@ -69,10 +69,10 @@ module.exports = function(dbController, passport, isLoggedIn) {
   });
 
 //------------------------------------------------------//
-  //testing purposes only?? Do not thing that this is relevant to our app currenly
+  //testing purposes only?? Do not think that this is relevant to our app currenly
   router.get('/user', function(req, res) {
     //get the user details from the database
-    dbController.user.get()
+    dbController.user.testGet()
     .then(function(data) {
       res.status(200).send(data);
     })
@@ -84,16 +84,16 @@ module.exports = function(dbController, passport, isLoggedIn) {
 
   // params usage
   router.get('/user/:id', function(req, res) {
-
+    // dbController.user.get()
   });
 
 
 //------------------------------------------------------//
   router.post('/user', function(req, res) {
 
-    var newUser = new classes.AddUser(req.body);
-
-    dbController.user.post(newUser)
+    // var newUser = new classes.AddUser(req.body);
+    // console.log("NEWUSER---->", newUser);
+    dbController.user.post(req.body)
     .then(function(data) {
       res.status(200).send(data);
     })

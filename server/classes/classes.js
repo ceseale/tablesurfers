@@ -42,14 +42,12 @@ module.exports = {
   },
 
   Join : function(body) {
-    this.firstName = body.firstName;
-    this.lastName = body.lastName;
+    this.name = body.displayName;
     this.description = body.description;
   },
 
   AddUser: function(body) {
-    this.firstName = body.firstName;
-    this.lastName = body.lastName;
+    this.name = body.name;
     this.facebookId = body.facebookId;
   }
   

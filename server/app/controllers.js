@@ -5,16 +5,19 @@ var objectify = require('./../classes/controllerClasses');
 module.exports = {
   user: {
 
-    get: function () {
+    testGet: function () {
       return database.User.findAll()
       .then(function (users) {
+        // console.log("TESTGET TO DB SUCCESS/THEN: ", users);
         return users;
+      }).catch(function(err){
+        // console.error("TESTGET TO DB ERROR: ", err);
       });
     },
 
     post: function (data) {
       return database.User.create({
-        name: data.displayName,
+        name: data.name,
         facebookId: data.facebookId
       }).then(function (message) {
         return message;
