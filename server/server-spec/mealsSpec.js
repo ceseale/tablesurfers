@@ -14,26 +14,33 @@ describe("Meals insertion to database", function() {
   var obj = {};
   obj.restaurant = {};
   //dates and times to be formatted using moment.js checker thing
-  obj.title = 'Hello :>';
+  obj.title = 'Hello World';
   obj.date = "1/1/2015";
   obj.time = "2:00pm";
   obj.description = "Testing 123...";
   obj.restaurant.name = "Super Duper";
-  obj.restaurant.address = "Hot Cakes Lane USA";
-  obj.restaurant.contact = "555-555-5555";
+  obj.restaurant.display_address = ["Hot Cakes Lane USA"];
+  obj.restaurant.phone = "555-555-5555";
   obj.restaurant.coordinate = {};
-  obj.restaurant.coordinate.lat = "0";
-  obj.restaurant.coordinate.lng = "0";
+  obj.restaurant.coordinate.lat = -76.0;
+  obj.restaurant.coordinate.lng = 76.0;
   obj.username = "Colin";
 
+  var user = {
+      name: "Colin",
+      facebookId: '1212'
+  };
 
   beforeEach(function (done){
     sequelize = new Sequelize("tablesufer", "admin", "admin", {dialect: "postgres"})
     sequelize.sync({force:true})
     .then(function(data){
+      return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/user", body: user, json: true})
+    }).then(function(data){
       done();
     }).catch(function(err){
       console.log("BEFORE EACH ERR");
+      done();
     });
 
   });
@@ -42,7 +49,7 @@ describe("Meals insertion to database", function() {
  
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/meals", body: {title: ""}, json: true})
     .then(function (data) {
-
+      done();
     }).catch(function(err){
       console.log('400 ERR')
       expect(err.statusCode).to.equal(400);
@@ -52,13 +59,14 @@ describe("Meals insertion to database", function() {
   });
 
   it("Should have return an 201 when data gets successfully added to database", function (done) { 
-
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/meals", body: obj, json: true})
     .then(function (data) {
       expect(err.statusCode).to.equal(201);
       done();
     }).catch(function(err){
       console.log("201 ERR"); 
+      expect(true).to.equal(false); 
+      done();
     });
     
   });
@@ -68,10 +76,12 @@ describe("Meals insertion to database", function() {
 
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/meals", body: obj, json: true})
     .then(function (data) {
-      expect(err.statusCode).to.equal(400);
+      console.log(err.statusCode)
+      expect(err.statusCode).to.equal(43300);
       done();
     }).catch(function(err){
       console.log("POST PERSIST ERROR");
+      done();
     });
     
   });
@@ -87,6 +97,7 @@ describe("Meals insertion to database", function() {
       done();
     }).catch(function(err){
       console.log("SELECT BY ID ERR");
+      done();
     });
     
   });
@@ -108,6 +119,7 @@ describe("Meals insertion to database", function() {
     })
     .catch(function(err){
       console.log("GET ALL MEALS ERR");
+      done();
     });
     
   });
