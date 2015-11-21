@@ -9,6 +9,11 @@ var Sequelize = require("sequelize");
 
 describe("User insertion to database successful", function() {
 
+  var obj = {
+      name: "Roger Fung",
+      facebookId: '1212'
+    };
+
   beforeEach(function () {
     sequelize = new Sequelize("tablesurfer", "admin", "admin", {dialect: 'postgres'});
     console.log("BEFORE EACH IS RUNNING."); 
@@ -20,8 +25,8 @@ describe("User insertion to database successful", function() {
   });
 
   it("Should post new user to user database", function(done) { //no argument needed here bluebird thing when using mocha
-      console.log("RUNNING FIRST TEST: POST USER"); 
-      return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/user", body: {name: "Roger Fung", facebookId: '1212'}, json: true})
+      console.log("RUNNING FIRST TEST: POST USER");
+      return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/user", body: obj, json: true})
       .then(function () {
         return db.User.findById(1);
       })
@@ -54,14 +59,38 @@ describe("User insertion to database successful", function() {
             done();
         })
         .catch(function (err) {
-            console.log('GET ERR: ', err);
+            console.log('GET ERR: ');
         });
-
-      // console.log("SUCCESFUL. HERE'S THE DATA: ", data);
-      //CHECK DATA OBJECTS PROPERTIES
-      // need to GET to check this stuff
   });
     
+  it("Should return a 400 error status for posting incorrect data", function (done) {
+    console.log("RUNNING THIRD TEST: SHOULD RETURN 400 FOR INCORRECT POST TO USER"); 
+    
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/user", body: {title: ""}, json: true})
+    .then(function (data) {
+
+    }).catch(function(err){
+      console.log("POST SHOULD RETURN 400 ERROR BUT DOESNT: "); 
+      expect(err.statusCode).to.equal(400);
+      done();
+    });
+    
+  });
+
+  it("Should return a 201 when data is successfully added to database", function (done) {
+    console.log("RUNNING FOURTH TEST: SHOULD RETURN 201 FOR CORRECT POST TO USER"); 
+
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/user", body: obj, json: true})
+    .then(function (data) {
+      expect(err.statusCode).to.equal(201);
+      done();
+    }).catch(function(err){
+      console.error("POST SHOULD RETURN 201, BUT RECEIVES ERROR");
+    });
+    
+  });
+
+
 });
 
   // it("Should insert new meal to database", function(done) {
