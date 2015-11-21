@@ -45,21 +45,20 @@ describe("Meals insertion to database", function() {
 
   });
 
-  // it("Should have return an error (400) status for sending wrong data", function (done) { 
+  it("Should have return an error (400) status for sending wrong data", function (done) { 
  
-  //   return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/meals", body: {title: ""}, json: true})
-  //   .then(function (data) {
-  //     done();
-  //   }).catch(function(err){
-  //     console.log('400 ERR')
-  //     expect(err.statusCode).to.equal(400);
-  //     done();
-  //   });
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/meals", body: {title: ""}, json: true})
+    .then(function (data) {
+      done();
+    }).catch(function(err){
+      console.log('400 ERR')
+      expect(err.statusCode).to.equal(400);
+      done();
+    });
     
-  // });
+  });
 
   it("Should have return an 201 when data gets successfully added to database", function (done) { 
-    console.log('hello111')
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/meals", body: obj, json: true})
     .then(function (data) {
       expect(err.statusCode).to.equal(201);
@@ -73,57 +72,57 @@ describe("Meals insertion to database", function() {
   });
 
 
-  // it("Should persist data to database", function (done) { 
+  it("Should persist data to database", function (done) { 
 
-  //   return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/meals", body: obj, json: true})
-  //   .then(function (data) {
-  //     console.log(err.statusCode)
-  //     expect(err.statusCode).to.equal(43300);
-  //     done();
-  //   }).catch(function(err){
-  //     console.log("POST PERSIST ERROR");
-  //     done();
-  //   });
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/meals", body: obj, json: true})
+    .then(function (data) {
+      console.log(err.statusCode)
+      expect(err.statusCode).to.equal(43300);
+      done();
+    }).catch(function(err){
+      console.log("POST PERSIST ERROR");
+      done();
+    });
     
-  // });
+  });
 
 
-  // it("Should select data by id", function (done) { 
+  it("Should select data by id", function (done) { 
 
-  //   return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/meals", body: obj, json: true})
-  //   .then(function (data) {
-  //     return request({method: "GET", uri: "http://127.0.0.1:3000/api/in/meals/1", json: true})
-  //   }).then(function(data){
-  //     expect(data[0].title).to.equal('Hello :>');
-  //     done();
-  //   }).catch(function(err){
-  //     console.log("SELECT BY ID ERR");
-  //     done();
-  //   });
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/meals", body: obj, json: true})
+    .then(function (data) {
+      return request({method: "GET", uri: "http://127.0.0.1:3000/api/in/meals/1", json: true})
+    }).then(function(data){
+      expect(data[0].title).to.equal('Hello :>');
+      done();
+    }).catch(function(err){
+      console.log("SELECT BY ID ERR");
+      done();
+    });
     
-  // });
+  });
 
-  //   it("Should get all the meals in the database", function (done) { 
+    it("Should get all the meals in the database", function (done) { 
 
-  //   var allPosts = [];
-  //   for (var i = 0; i < 10; i ++) {
-  //     allPosts.push(request({method:"POST", uri: "http://127.0.0.1:3000/api/in/meals", body: obj, json: true}));
-  //   }
+    var allPosts = [];
+    for (var i = 0; i < 10; i ++) {
+      allPosts.push(request({method:"POST", uri: "http://127.0.0.1:3000/api/in/meals", body: obj, json: true}));
+    }
 
-  //   Promise.all(allPosts)
-  //   .then(function(){
-  //     db.Meal.findAll()
-  //     .then(function(data){
-  //       expect(data.length).to.be(10);
-  //       done();
-  //     })
-  //   })
-  //   .catch(function(err){
-  //     console.log("GET ALL MEALS ERR");
-  //     done();
-  //   });
+    Promise.all(allPosts)
+    .then(function(){
+      db.Meal.findAll()
+      .then(function(data){
+        expect(data.length).to.be(10);
+        done();
+      })
+    })
+    .catch(function(err){
+      console.log("GET ALL MEALS ERR");
+      done();
+    });
     
-  // });
+  });
 
 
 });
