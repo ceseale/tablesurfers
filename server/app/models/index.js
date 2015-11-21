@@ -85,15 +85,15 @@ if (!global.hasOwnProperty('db')) {
   Meals.belongsTo(Restaurants);
 
 //table not yet utilized but could be another method to filter/search by?!
-  var Genres = sequelize.define("Genres", {
+  var Cuisine = sequelize.define("Cuisine", {
     name: {
       type: Sequelize.STRING,
       allowNull: false
     }
   });
-//added associations between the restaurants table and the genre table
-  Genres.hasOne(Restaurants);
-  Restaurants.belongsTo(Genres);
+//added associations between the restaurants table and the cuisine table
+  Cuisine.hasOne(Restaurants);
+  Restaurants.belongsTo(Cuisine);
 
   var Attendees = sequelize.define("Attendees", {
   });
@@ -115,8 +115,8 @@ if (!global.hasOwnProperty('db')) {
     Users: Users,
     Meals: Meals,
     Restaurants: Restaurants,
-    Attendees: Attendees
-
+    Attendees: Attendees,
+    Cuisine: Cuisine
     // add your other models here
   };
 }
