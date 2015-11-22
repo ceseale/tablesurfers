@@ -91,7 +91,14 @@ var Restaurant = db.define("Restaurant", {
 Restaurant.hasMany(Meal);
 Meal.belongsTo(Restaurant);
 
-db.sync({force:true});
+User.sync({force:true})
+.then(function(){
+  return Meal.sync({force:true});
+}).then(function(){
+  return Restaurant.sync({force:true});
+})
+
+
 
 exports.Meal = Meal;
 exports.User = User;
