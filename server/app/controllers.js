@@ -31,7 +31,7 @@ module.exports = {
       return database.User.find({ where: {name: data.name, facebookId: data.facebookId} })
       .then(function(user) {
         userFound = user;
-        return database.User.find({where: {description: data.description}})
+        return database.Meal.find({where: {description: data.description}})
         .then(function (meal) {
            meal.addAttendee(userFound);
         });
