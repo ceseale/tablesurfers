@@ -42,5 +42,5 @@ module.exports = function(url, app, dbController) {
         res.status(500).send(err);
       });
 
-  })
-}
+  });
+};

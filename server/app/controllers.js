@@ -27,24 +27,16 @@ module.exports = {
 
     //for a user joining a meal
     joinMeal: function(data) {
-      return database.User.find({ where: {firstName: data.firstName, lastName: data.lastName} })
+      var userFound;
+      return database.User.find({ where: {name: data.name, facebookId: data.facebookId} })
       .then(function(user) {
-        //this should get the user data that matched the user details passed
-        return database.Meal.find({ where: {description: data.description} })
-        .then(function(meal) {
-          //meal should be an object containing the table input for this meal
-          return database.Attendee.create({
-            UserId: user.id,
-            MealId: meal.id
-          })
-          .then(function(attendee) {
-            return attendee;
-          });
+        userFound = user;
+        return database.User.find({where: {description: data.description}})
+        .then(function (meal) {
+           meal.addAttendee(userFound);
         });
       });
-    }
-
-  },
+    },
 
   meals: {
 
