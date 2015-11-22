@@ -53,7 +53,7 @@ describe("User insertion to database", function() {
       return request(options)
         .then(function (res) {
             expect(res[0].name).to.equal("Roger Fung"); // first entry in DB
-            expect(res[0].facebookId).to.equal(752345235364236);
+            expect(res[0].facebookId).to.equal('752345235364236');
             done();
         })
         .catch(function (err) {
