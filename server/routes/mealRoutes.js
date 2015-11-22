@@ -4,13 +4,11 @@ module.exports = function(url, app, dbController) {
 
   app.route(url)
     .get(function( req, res){
-      console.log('routing to db');
       dbController.meals.get()
       .then(function(data) {
         res.status(200).send(data);
       })
       .catch(function(err) {
-        console.log('err posting meal data', err);
         res.status(500).send(err);
       });
     })
@@ -42,7 +40,6 @@ module.exports = function(url, app, dbController) {
         res.status(200).send(data);
       })
       .catch(function(err) {
-        console.log('err posting meal data:', err);
         res.status(500).send(err);
       });
 

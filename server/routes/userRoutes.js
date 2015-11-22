@@ -6,7 +6,6 @@ module.exports = function (url, app, dbController) {
       res.status(200).send(data);
     })
     .catch(function(err) {
-      console.log('err getting user data:', err);
       res.status(500).send(err);
     });
   })

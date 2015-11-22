@@ -84,7 +84,6 @@ describe("Meals insertion to database", function() {
     .then(function (data) {
       return request({method: "GET", uri: "http://127.0.0.1:3000/api/meal/1", json: true})
     }).then(function(data){
-      console.log(data)
       expect(data.title).to.equal('Beet Salad');
       done();
     }).catch(function(err){
@@ -93,7 +92,7 @@ describe("Meals insertion to database", function() {
     
   });
 
-    it("Should get all the meals in the database", function (done) { 
+  it("Should get all the meals in the database", function (done) { 
 
     var allPosts = [];
     for (var i = 0; i < 10; i ++) {
@@ -105,7 +104,6 @@ describe("Meals insertion to database", function() {
       return db.Meal.findAll()
     })
       .then(function(data){
-        console.log(data.length)
         expect(data.length).to.equal(13);
         done();
       })
