@@ -113,6 +113,26 @@ describe("Meals insertion to database", function() {
     
   });
 
+  it("Should add a user to a meal", function (done) { 
+
+    var putObj = { name : "Colin" , facebookId : 5243653562365, description : obj.description }
+
+    request({method:"PUT", uri: "http://127.0.0.1:3000/api/meal", body: putObj, json: true, resolveWithFullResponse: true})
+    .then(function (data) {
+      return db.Meal.find( { where : { description : obj.description } } )
+    })
+    .then(function(meal){
+      return meal.getAttendee()
+    })
+    .then(function(attendees){
+      expect(attendees[0].dataValues.name).to.equal('Colin');
+      done();
+    })
+    .catch(function(err){
+      done(err);
+    })
+
+  });
 
 });
 
