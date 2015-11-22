@@ -35,7 +35,7 @@ describe("Meals insertion to database", function() {
     sequelize = new Sequelize("tablesufer", "admin", "admin", {dialect: "postgres"})
     sequelize.sync({force:true})
     .then(function(data){
-      return request({method: "POST", uri: "http://127.0.0.1:3000/api/in/user", body: user, json: true})
+      return request({method: "POST", uri: "http://127.0.0.1:3000/api/user", body: user, json: true})
     }).then(function(data){
       done();
     }).catch(function(err){
@@ -49,7 +49,7 @@ describe("Meals insertion to database", function() {
  
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/meals", body: {title: ""}, json: true})
     .then(function (data) {
-      done();
+
     }).catch(function(err){
       console.log('400 ERR')
       expect(err.statusCode).to.equal(400);
@@ -59,9 +59,9 @@ describe("Meals insertion to database", function() {
   });
 
   it("Should have return an 201 when data gets successfully added to database", function (done) { 
-    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meals", body: obj, json: true})
-    .then(function (data) {
-      expect(err.statusCode).to.equal(201);
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meals", body: obj, json: true, resolveWithFullResponse: true})
+    .then(function (res) {
+      expect(res.statusCode).to.equal(201);
       done();
     }).catch(function(err){
       console.log("201 ERR"); 
