@@ -1,4 +1,3 @@
-var classes = require('../classes/classes');
 
 module.exports = function(url, app, dbController) {
 
@@ -33,7 +32,7 @@ module.exports = function(url, app, dbController) {
     .put(function(req, res) { // update and write test
 
       //user joining an event
-      var join = new classes.Join(req.body);
+      var join = req.body;
 
       dbController.user.joinMeal(join)
       .then(function(data) {
