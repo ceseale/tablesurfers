@@ -44,7 +44,7 @@ describe("Meals insertion to database", function() {
   });
 
   it("Should have return an error (400) status for sending wrong data", function (done) { 
- 
+  
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: {title: ""}, json: true})
     .catch(function(err){
       expect(err.statusCode).to.equal(400);
@@ -84,7 +84,8 @@ describe("Meals insertion to database", function() {
     .then(function (data) {
       return request({method: "GET", uri: "http://127.0.0.1:3000/api/meal/1", json: true})
     }).then(function(data){
-      expect(data[0].title).to.equal('Hello :>');
+      console.log(data)
+      expect(data.title).to.equal('Beet Salad');
       done();
     }).catch(function(err){
       done(err);
@@ -104,7 +105,8 @@ describe("Meals insertion to database", function() {
       return db.Meal.findAll()
     })
       .then(function(data){
-        expect(data.length).to.be(13);
+        console.log(data.length)
+        expect(data.length).to.equal(13);
         done();
       })
     .catch(function(err){
