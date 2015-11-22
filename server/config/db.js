@@ -21,7 +21,7 @@ var User = db.define("User", {
     allowNull: true
   },
   profilePic: {
-    type: Sequelize.STRING,
+    type: Sequelize.BLOB, // BLOB turns into bytea for PostgreSQL. Can also specify BLOB('tiny') or medium or long
     allowNull: true
   },
   gender: {
