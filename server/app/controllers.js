@@ -64,23 +64,17 @@ module.exports = {
     },
 
     getOne: function (data) {
-
-      return database.Meal.find({ where: {id: data}, include: [database.User, database.Restaurant] })
-        .then(function (meal) {
-          return meal.getUsers().then(function (result) {
-            var mealObj = {meal: meal, Attendees: result};
-            console.log(mealObj);
-            return mealObj;
+      return database.Meal.find({ where: {id: data}})
+          .then(function (meal) {
+              return meal;
           });
-
-        });
-    },
+        },
 
     post: function (data) {
 
       return database.User.find({where: {name: data.username}})
         .then(function (user) {
-          console.log("LOGGING USER");
+          console.log("LOGGING USER", user);
           return database.Restaurant.findOrCreate({where: {name: data.restaurant}, defaults:  {name: data.name, address: data.address, contact: data.contact, lat: data.lat, lng: data.lng, cuisine: data.cuisine}})
             .then(function (restaurant) {
               console.log("LOGGING Restaurant");
@@ -90,10 +84,12 @@ module.exports = {
                 time: data.time,
                 description: data.description,
                 UserId: user.dataValues.id,
-                RestaurantId: restaurant.dataValues.id
+                RestaurantId: restaurant[0].dataValues.id
               }).then(function (message) {
                 return message;
               });
+            }).catch(function(err){
+              console.log(err);
             })
         })
     }
