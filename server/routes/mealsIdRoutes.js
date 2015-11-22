@@ -9,7 +9,7 @@ module.exports = function( url, app, dbController) {
       })
       .catch(function(err) {
         console.log('Error getting meals/:id from router: ', err);
-        res.status(404).send(err);
+        res.status(404).send(err.message);
       });
     })
   }
