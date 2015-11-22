@@ -20,12 +20,17 @@ describe("Meals insertion to database", function() {
   obj.lng = 76.0;
   obj.cuisine = "Ethiopian";
   obj.username = "Colin";
+  obj.title = "Beet Salad";
+  obj.date = "12/11/3015";
+  obj.time = "10:10pm";
+  obj.description = "Ethiopian beet salad is a tangy and delicious combination of marinated beets, spice, and sometimes potatoes and carrots.";
+  
   var user = {
       name: "Colin",
-      facebookId: '1212'
+      facebookId: 5243653562365
   };
 
-  beforeEach(function (done){
+  before(function (done){
     sequelize = new Sequelize("tablesufer", "admin", "admin", {dialect: "postgres"})
     sequelize.sync({force:true})
     .then(function(data){
@@ -33,8 +38,7 @@ describe("Meals insertion to database", function() {
     }).then(function(data){
       done();
     }).catch(function(err){
-      console.log("BEFORE EACH ERR");
-      done();
+      done(err);
     });
 
   });
@@ -42,10 +46,7 @@ describe("Meals insertion to database", function() {
   it("Should have return an error (400) status for sending wrong data", function (done) { 
  
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: {title: ""}, json: true})
-    .then(function (data) {
-
-    }).catch(function(err){
-      console.log('400 ERR')
+    .catch(function(err){
       expect(err.statusCode).to.equal(400);
       done();
     });
@@ -58,9 +59,7 @@ describe("Meals insertion to database", function() {
       expect(res.statusCode).to.equal(201);
       done();
     }).catch(function(err){
-      console.log("201 ERR"); 
-      expect(true).to.equal(false); 
-      done();
+      done(err);
     });
     
   });
@@ -68,14 +67,12 @@ describe("Meals insertion to database", function() {
 
   it("Should persist data to database", function (done) { 
 
-    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: obj, json: true})
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: obj, json: true, resolveWithFullResponse: true})
     .then(function (data) {
-      console.log(err.statusCode)
-      expect(err.statusCode).to.equal(43300);
+      expect(data.statusCode).to.equal(201);
       done();
     }).catch(function(err){
-      console.log("POST PERSIST ERROR");
-      done();
+      done(err);
     });
     
   });
@@ -90,8 +87,7 @@ describe("Meals insertion to database", function() {
       expect(data[0].title).to.equal('Hello :>');
       done();
     }).catch(function(err){
-      console.log("SELECT BY ID ERR");
-      done();
+      done(err);
     });
     
   });
@@ -105,15 +101,14 @@ describe("Meals insertion to database", function() {
 
     Promise.all(allPosts)
     .then(function(){
-      db.Meal.findAll()
+      return db.Meal.findAll()
+    })
       .then(function(data){
-        expect(data.length).to.be(10);
+        expect(data.length).to.be(13);
         done();
       })
-    })
     .catch(function(err){
-      console.log("GET ALL MEALS ERR");
-      done();
+      done(err);
     });
     
   });
