@@ -11,7 +11,9 @@ var flash         = require('connect-flash');
 var bodyParser    = require('body-parser');
 var cookieParser  = require('cookie-parser');
 var session       = require('express-session');
-
+var userRoutes = require('routes/userRoutes');
+var mealRoutes = require('routes/mealRoutes');
+var mealsidRoutes = require('routes/mealsidRoutes');
 
 // configuration ===============================================================
 
@@ -21,33 +23,23 @@ require('./config/passport')(passport); // pass passport for configuration
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
-
 app.use(session({ secret: 'soroushisnumberone' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-
-
-var dbController = require('./app/controllers');
-
 // require the routes file
-var inRouter = require('./app/routes/in');
-
-
 var outRouter = require('./app/routes/out');
 
-// require isLoggedIn method so we can use it in routes to check if user is logged in
+var dbController = require('./app/controllers');
 var isLoggedIn = require('./app/isLoggedIn');
 
-inRouter = inRouter(dbController, passport, isLoggedIn);
+userRoutes('/api/user', app, dbController);
+mealsidRoutes('/api/meal', app, dbController);
+mealRoutes('/api/meal', app, dbController);
+
+// require isLoggedIn method so we can use it in routes to check if user is logged in
 outRouter = outRouter(dbController, passport, isLoggedIn);
-
-app.use('/api', inRouter);
-
-app.get('/auth/facebook/callback', function (req, res) {
-  res.redirect('/api'+req.url);
-});
 
 app.use('/auth', outRouter);
 
