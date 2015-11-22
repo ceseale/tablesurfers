@@ -1,5 +1,5 @@
-module.exports = function(app, dbController) {
-  app.route('/meals/:id')
+module.exports = function( url, app, dbController) {
+  app.route(url)
     .get(function(req, res) {
       var meal_id = req.params.id;
       console.log('Serverside, retrieve this meal: ', req.params);
