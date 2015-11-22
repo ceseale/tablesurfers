@@ -12,20 +12,14 @@ var db = require('../config/db');
 describe("Meals insertion to database", function() {
 
   var obj = {};
-  obj.restaurant = {};
   //dates and times to be formatted using moment.js checker thing
-  obj.title = 'Hello World';
-  obj.date = "1/1/2015";
-  obj.time = "2:00pm";
-  obj.description = "Testing 123...";
-  obj.restaurant.name = "Super Duper";
-  obj.restaurant.display_address = ["Hot Cakes Lane USA"];
-  obj.restaurant.phone = "555-555-5555";
-  obj.restaurant.coordinate = {};
-  obj.restaurant.coordinate.lat = -76.0;
-  obj.restaurant.coordinate.lng = 76.0;
+  obj.name = "Super Duper";
+  obj.address = ["Hot Cakes Lane USA"];
+  obj.contact = "555-555-5555";
+  obj.lat = -76.0;
+  obj.lng = 76.0;
+  obj.cuisine = "Ethiopian";
   obj.username = "Colin";
-
   var user = {
       name: "Colin",
       facebookId: '1212'
