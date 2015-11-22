@@ -36,7 +36,8 @@ module.exports = {
            meal.addAttendee(userFound);
         });
       });
-    },
+    }
+  },
 
   meals: {
 
