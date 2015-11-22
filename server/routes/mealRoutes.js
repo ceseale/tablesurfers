@@ -16,19 +16,23 @@ module.exports = function(url, app, dbController) {
     })
     .post(function(req, res) {
       //make an object of all the values that we need
-      var meal = classes.Meal(req.body);
+      var meal = req.body;
       // //if the values are not valid then send err
 
-      if (!meal) {
-        res.status(400).send('wrong data passed to routes');
+      if (!meal.description) {
+        res.sendStatus(400);
       }
-      //else go onto the queries
+      else{
       dbController.meals.post(meal)
       .then(function(data){
-        res.status(201).send(data);
-      });
+        res.sendStatus(201);
+      })
+      .catch(function(err){
+        res.status(500).send(err); // update to sendStatus
+      })
+    }
     })
-    .put(function(req, res) {
+    .put(function(req, res) { // update and write test
 
       //user joining an event
       var join = new classes.Join(req.body);
