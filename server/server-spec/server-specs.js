@@ -18,22 +18,19 @@ describe("User insertion to database", function() {
 
   before(function () {
     sequelize = new Sequelize("tablesurfer", "admin", "admin", {dialect: 'postgres'});
-    console.log("BEFORE IS RUNNING.");
     sequelize.sync({force:true})
     .then(function(){
     }).catch(function(err){
-      console.log('BEFORE err');
+      console.error("POST ERR"); // put err back in
     });
   });
 
   it("Should post new user to user database", function(done) { //no argument needed here bluebird thing when using mocha
-      console.log("RUNNING FIRST TEST: POST USER");
       return request({method: "POST", uri: "http://127.0.0.1:3000/api/user", body: obj, json: true})
       .then(function () {
         return db.User.findById(1);
       })
       .then(function (user) {
-        console.log("Get User");
         expect(user.name).to.equal("Roger Fung");
         done();
       }).catch(function (err) {
@@ -44,7 +41,6 @@ describe("User insertion to database", function() {
   
   it("Should retrieve new user to user database", function(done) {
     //remember to return the promise inside- if all corrct the test will pass if not then the test will fail and no catch needed
-      console.log("RUNNING SECOND TEST: GET USER"); 
       var options = {
         uri: 'http://127.0.0.1:3000/api/user',
         headers: {
@@ -55,7 +51,6 @@ describe("User insertion to database", function() {
        
       return request(options)
         .then(function (res) {
-            console.log('GETTING RESPONSE: ------>');
             expect(res[0].name).to.equal("Roger Fung"); // first entry in DB
             expect(res[0].facebookId).to.equal('1212');
             done();
@@ -66,8 +61,6 @@ describe("User insertion to database", function() {
   });
     
   it("Should return a 400 error status for posting incorrect data", function (done) {
-    console.log("RUNNING THIRD TEST: SHOULD RETURN 400 FOR INCORRECT POST TO USER"); 
-    
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/user", body: {title: ""}, json: true})
     .then(function (data) {
 
@@ -80,16 +73,13 @@ describe("User insertion to database", function() {
   });
 
   it("Should return a 201 when data is successfully added to database", function (done) {
-    console.log("RUNNING FOURTH TEST: SHOULD RETURN 201 FOR CORRECT POST TO USER"); 
-
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/user", body: obj, json: true, resolveWithFullResponse: true})
     // this allows us to access response.statusCode in tests below. Other props can be found on response.body
     .then(function (res) {
-      console.log("STATUS IS:", res);
       expect(res.statusCode).to.equal(201);
       done();
     }).catch(function(err){
-      console.error("POST SHOULD RETURN 201, BUT RECEIVES ERROR: ", err);
+      console.error("POST SHOULD RETURN 201, BUT RECEIVES ERROR: ", err.message);
     });
     
   });
