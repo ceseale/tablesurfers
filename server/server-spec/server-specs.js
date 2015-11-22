@@ -12,16 +12,17 @@ describe("User insertion to database", function() {
   // Tests are self contained, so though we need resolveWithFullResponse to test here, we do not need to replicate it in actual server/db
   var obj = {
       name: "Roger Fung",
-      facebookId: '1212'
+      facebookId: 752345235364236
   };
 
 
-  before(function () {
+  before(function (done) {
     sequelize = new Sequelize("tablesurfer", "admin", "admin", {dialect: 'postgres'});
     sequelize.sync({force:true})
     .then(function(){
+      done();
     }).catch(function(err){
-      console.error("POST ERR"); // put err back in
+      done(err);
     });
   });
 
@@ -34,7 +35,7 @@ describe("User insertion to database", function() {
         expect(user.name).to.equal("Roger Fung");
         done();
       }).catch(function (err) {
-        console.error("POST ERR"); // put err back in
+        done(err);
       });
 
   });
@@ -52,20 +53,17 @@ describe("User insertion to database", function() {
       return request(options)
         .then(function (res) {
             expect(res[0].name).to.equal("Roger Fung"); // first entry in DB
-            expect(res[0].facebookId).to.equal('1212');
+            expect(res[0].facebookId).to.equal(752345235364236);
             done();
         })
         .catch(function (err) {
-            console.log('GET ERR: ');
+            done(err);
         });
   });
     
   it("Should return a 400 error status for posting incorrect data", function (done) {
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/user", body: {title: ""}, json: true})
-    .then(function (data) {
-
-    }).catch(function(err){
-      console.log("POST SHOULD RETURN 400 ERROR BUT DOESNT: "); 
+    .catch(function(err){
       expect(err.statusCode).to.equal(400);
       done();
     });
@@ -79,7 +77,7 @@ describe("User insertion to database", function() {
       expect(res.statusCode).to.equal(201);
       done();
     }).catch(function(err){
-      console.error("POST SHOULD RETURN 201, BUT RECEIVES ERROR: ", err.message);
+      done(err);
     });
     
   });
