@@ -80,10 +80,10 @@ module.exports = {
 
       return database.User.find({where: {name: data.username}})
         .then(function (user) {
-          console.log(user, "LOGGING USER");
-          return database.Restaurant.findOrCreate({where: {name: data.restaurant}, defaults:  {name: data.restaurant, address: data.address, contact: data.contact, lat: data.latitude, lng: data.longitude}})
+          console.log("LOGGING USER");
+          return database.Restaurant.findOrCreate({where: {name: data.restaurant}, defaults:  {name: data.name, address: data.address, contact: data.contact, lat: data.lat, lng: data.lng, cuisine: data.cuisine}})
             .then(function (restaurant) {
-              console.log(restaurant, "LOGGING Restaurant");
+              console.log("LOGGING Restaurant");
               return database.Meal.create({
                 title: data.title,
                 date: data.date,
