@@ -47,7 +47,7 @@ describe("Meals insertion to database", function() {
 
   it("Should have return an error (400) status for sending wrong data", function (done) { 
  
-    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meals", body: {title: ""}, json: true})
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: {title: ""}, json: true})
     .then(function (data) {
 
     }).catch(function(err){
@@ -59,7 +59,7 @@ describe("Meals insertion to database", function() {
   });
 
   it("Should have return an 201 when data gets successfully added to database", function (done) { 
-    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meals", body: obj, json: true, resolveWithFullResponse: true})
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: obj, json: true, resolveWithFullResponse: true})
     .then(function (res) {
       expect(res.statusCode).to.equal(201);
       done();
@@ -74,7 +74,7 @@ describe("Meals insertion to database", function() {
 
   it("Should persist data to database", function (done) { 
 
-    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meals", body: obj, json: true})
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: obj, json: true})
     .then(function (data) {
       console.log(err.statusCode)
       expect(err.statusCode).to.equal(43300);
@@ -89,9 +89,9 @@ describe("Meals insertion to database", function() {
 
   it("Should select data by id", function (done) { 
 
-    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meals", body: obj, json: true})
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: obj, json: true})
     .then(function (data) {
-      return request({method: "GET", uri: "http://127.0.0.1:3000/api/meals/1", json: true})
+      return request({method: "GET", uri: "http://127.0.0.1:3000/api/meal/1", json: true})
     }).then(function(data){
       expect(data[0].title).to.equal('Hello :>');
       done();
@@ -106,7 +106,7 @@ describe("Meals insertion to database", function() {
 
     var allPosts = [];
     for (var i = 0; i < 10; i ++) {
-      allPosts.push(request({method:"POST", uri: "http://127.0.0.1:3000/api/meals", body: obj, json: true}));
+      allPosts.push(request({method:"POST", uri: "http://127.0.0.1:3000/api/meal", body: obj, json: true}));
     }
 
     Promise.all(allPosts)
