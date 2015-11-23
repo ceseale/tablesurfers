@@ -37,6 +37,9 @@ var Meal = db.define("Meal", {
 User.belongsToMany(Meal, {through: "UserAndMeal"});
 Meal.belongsToMany(User, {through: "UserAndMeal"});
 
+User.hasMany(Meal);
+Meal.belongsTo(User, {as: "host"});
+
 var Restaurant = db.define("Restaurant", {
   name: {
     type: Sequelize.STRING,

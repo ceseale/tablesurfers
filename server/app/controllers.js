@@ -74,25 +74,33 @@ module.exports = {
         },
 
     post: function (data) {
+      var userId;
+      var restaurantId;
 
-      return database.User.find({where: {name: data.username}})
-        .then(function (user) {
-          return database.Restaurant.findOrCreate({where: {name: data.restaurant}, defaults:  {name: data.name, address: data.address, contact: data.contact, lat: data.lat, lng: data.lng, cuisine: data.cuisine}})
-            .then(function (restaurant) {
-              return database.Meal.create({
-                title: data.title,
-                date: data.date,
-                time: data.time,
-                description: data.description,
-                UserId: user.dataValues.id,
-                RestaurantId: restaurant[0].dataValues.id
-              }).then(function (message) {
-                return message;
-              });
-            }).catch(function(err){
-              console.log(err);
-            })
-        })
+      return database.User.find({where: {facebookId: data.host.facebookId}})
+      .then(function (user) {
+        userId = user.id;
+        return database.Restaurant.findOrCreate({ 
+          where: {name: data.restaurant.name, address: data.restaurant.address}, 
+          defaults: {name: data.restaurant.name, address: data.restaurant.address, contact: data.restaurant.contact, lat: data.restaurant.lat, lng: data.restaurant.lng, cuisine: data.restaurant.cuisine, image_url: data.restaurant.image_url, url: data.restaurant.url }
+        });
+      })
+      .then(function (restaurant) {
+        restaurantId = restaurant.id;
+        return;
+      })
+      .then(function () {
+        return database.Meal.create({
+          title: data.meal.title,
+          date: data.meal.date,
+          time: data.meal.time,
+          description: data.meal.description,
+          theme: data.meal.theme,
+          attendeeLimit: data.meal.attendeeLimit,
+          RestaurantId: restaurantId,
+          HostId: userId
+        });
+      });
     }
   },
   restaurants: {},
