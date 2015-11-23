@@ -1,6 +1,6 @@
 var database = require('../config/db');
 var Promise = require('bluebird');
-var objectify = require('./../classes/controllerClasses');
+var objectify = require('./../classes/controllerClasses'); //remove?
 
 module.exports = {
   user: {
@@ -56,7 +56,7 @@ module.exports = {
           //make an object to send back
           var obj = [];
           meals.map(function(meal, i) {
-            obj.push(new objectify.restaurantData(meal));
+            obj.push(new objectify.restaurantData(meal)); //update to not use objectify?
           });
           // console.log('----------',meals);
           return obj;

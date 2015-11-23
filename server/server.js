@@ -29,7 +29,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // require the routes file
-var outRouter = require('./app/routes/out');
+var outRouter = require('./routes/out');
 
 var dbController = require('./app/controllers');
 var isLoggedIn = require('./app/isLoggedIn');

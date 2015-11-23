@@ -6,8 +6,8 @@ var n = require('nonce')();
 var qs = require('querystring');
 var Promise = require('bluebird');
 
-var auth = require('./../../config/auth.js');
-var db = require('./../../config/db.js');
+var auth = require('../config/auth.js');
+var db = require('../config/db.js');
 
 var request_yelp = function(set_parameters, callback) {
   // set_parameters: object with params to search
