@@ -57,7 +57,7 @@ module.exports = {
           //make an object to send back
           var obj = [];
           meals.map(function(meal, i) {
-            obj.push(meal.dataValues);
+            obj.push(meal.meal.dataValues);
           });
           return obj;
         })
