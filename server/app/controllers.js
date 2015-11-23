@@ -96,7 +96,7 @@ module.exports = {
           description: data.meal.description,
           theme: data.meal.theme,
           RestaurantId: restaurantId,
-          HostId: userFound.id
+          HostId: userId
         });
       });
     }
