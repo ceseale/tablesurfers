@@ -1,44 +1,44 @@
-var classes = require('../classes/classes');
 
 module.exports = function(url, app, dbController) {
 
   app.route(url)
     .get(function( req, res){
-      console.log('routing to db');
       dbController.meals.get()
       .then(function(data) {
         res.status(200).send(data);
       })
       .catch(function(err) {
-        console.log('err posting meal data', err);
         res.status(500).send(err);
       });
     })
     .post(function(req, res) {
       //make an object of all the values that we need
-      var meal = classes.Meal(req.body);
+      var meal = req.body;
       // //if the values are not valid then send err
 
-      if (!meal) {
-        res.status(400).send('wrong data passed to routes');
+      if (!meal.description) {
+        res.sendStatus(400);
       }
-      //else go onto the queries
+      else{
       dbController.meals.post(meal)
       .then(function(data){
-        res.status(201).send(data);
-      });
+        res.sendStatus(201);
+      })
+      .catch(function(err){
+        res.status(500).send(err); // update to sendStatus
+      })
+    }
     })
-    .put(function(req, res) {
+    .put(function(req, res) { // update and write test
 
       //user joining an event
-      var join = new classes.Join(req.body);
+      var join = req.body;
 
       dbController.user.joinMeal(join)
       .then(function(data) {
         res.status(200).send(data);
       })
       .catch(function(err) {
-        console.log('err posting meal data:', err);
         res.status(500).send(err);
       });
 

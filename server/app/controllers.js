@@ -31,12 +31,13 @@ module.exports = {
       return database.User.find({ where: {name: data.name, facebookId: data.facebookId} })
       .then(function(user) {
         userFound = user;
-        return database.User.find({where: {description: data.description}})
+        return database.Meal.find({where: {description: data.description}})
         .then(function (meal) {
            meal.addAttendee(userFound);
         });
       });
-    },
+    }
+  },
 
   meals: {
 
@@ -63,36 +64,32 @@ module.exports = {
     },
 
     getOne: function (data) {
-
-      return database.Meal.find({ where: {id: data}, include: [database.User, database.Restaurant] })
-        .then(function (meal) {
-          return meal.getUsers().then(function (result) {
-            var mealObj = {meal: meal, Attendees: result};
-            console.log(mealObj);
-            return mealObj;
+      return database.Meal.find({ where: {id: data}})
+          .then(function (meal) {
+              return meal;
           });
-
-        });
-    },
+        },
 
     post: function (data) {
 
       return database.User.find({where: {name: data.username}})
         .then(function (user) {
-          console.log(user, "LOGGING USER");
-          return database.Restaurant.findOrCreate({where: {name: data.restaurant}, defaults:  {name: data.restaurant, address: data.address, contact: data.contact, lat: data.latitude, lng: data.longitude}})
+          console.log("LOGGING USER", user);
+          return database.Restaurant.findOrCreate({where: {name: data.restaurant}, defaults:  {name: data.name, address: data.address, contact: data.contact, lat: data.lat, lng: data.lng, cuisine: data.cuisine}})
             .then(function (restaurant) {
-              console.log(restaurant, "LOGGING Restaurant");
+              console.log("LOGGING Restaurant");
               return database.Meal.create({
                 title: data.title,
                 date: data.date,
                 time: data.time,
                 description: data.description,
                 UserId: user.dataValues.id,
-                RestaurantId: restaurant.dataValues.id
+                RestaurantId: restaurant[0].dataValues.id
               }).then(function (message) {
                 return message;
               });
+            }).catch(function(err){
+              console.log(err);
             })
         })
     }

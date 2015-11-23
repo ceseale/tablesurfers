@@ -11,9 +11,9 @@ var flash         = require('connect-flash');
 var bodyParser    = require('body-parser');
 var cookieParser  = require('cookie-parser');
 var session       = require('express-session');
-var userRoutes = require('routes/userRoutes');
-var mealRoutes = require('routes/mealRoutes');
-var mealsidRoutes = require('routes/mealsidRoutes');
+var userRoutes = require('./routes/userRoutes');
+var mealRoutes = require('./routes/mealRoutes');
+var mealsidRoutes = require('./routes/mealsIdRoutes');
 
 // configuration ===============================================================
 
@@ -35,7 +35,7 @@ var dbController = require('./app/controllers');
 var isLoggedIn = require('./app/isLoggedIn');
 
 userRoutes('/api/user', app, dbController);
-mealsidRoutes('/api/meal', app, dbController);
+mealsidRoutes('/api/meal/:id', app, dbController);
 mealRoutes('/api/meal', app, dbController);
 
 // require isLoggedIn method so we can use it in routes to check if user is logged in

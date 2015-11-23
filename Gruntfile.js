@@ -11,7 +11,7 @@ module.exports = function (grunt) {
         options: {
           reporter: 'spec'
         },
-        src: ['server/server-spec/*.js']
+        src: ['server/server-spec/server-specs.js', 'server/server-spec/mealsSpec.js']
       }
     },
     uglify: {
