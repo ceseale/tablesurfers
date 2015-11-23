@@ -81,8 +81,20 @@ module.exports = {
       .then(function (user) {
         userId = user.id;
         return database.Restaurant.findOrCreate({ 
-          where: {name: data.restaurant.name, address: data.restaurant.address}, 
-          defaults: {name: data.restaurant.name, address: data.restaurant.address, contact: data.restaurant.contact, lat: data.restaurant.lat, lng: data.restaurant.lng, cuisine: data.restaurant.cuisine, image_url: data.restaurant.image_url, url: data.restaurant.url }
+          where: {
+            name: data.restaurant.name,
+            address: data.restaurant.address
+          }, 
+          defaults: {
+            name: data.restaurant.name,
+            address: data.restaurant.address,
+            contact: data.restaurant.contact,
+            lat: data.restaurant.lat,
+            lng: data.restaurant.lng,
+            cuisine: data.restaurant.cuisine,
+            image_url: data.restaurant.image_url,
+            url: data.restaurant.url
+          }
         });
       })
       .then(function (restaurant) {
@@ -100,6 +112,9 @@ module.exports = {
           RestaurantId: restaurantId,
           HostId: userId
         });
+      })
+      .catch(function (err) {
+        console.error('POST MEAL ERROR', err);
       });
     }
   },
