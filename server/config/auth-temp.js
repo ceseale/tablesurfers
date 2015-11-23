@@ -6,11 +6,11 @@ module.exports = {
     'callbackURL': 'http://localhost:3000/auth/facebook/callback'
   },
   oauth: {
-   consumer_key: 'TAPaLdRaLTExD0vJ18UMtA',
-   token: 'E9oilk1Ig4L8CTgT_t5juFVNihxQk9S5'
+   consumer_key: 'x',
+   token: 'x'
   },
   yelp: {
-   consumerSecret: 'Msd-D6cB8c33A-o_ahKYgU-kGHc',
-   tokenSecret: 'CXnmG_Zf_FjHpqAhPFvRIW0ppwE'
+   consumerSecret: 'x',
+   tokenSecret: 'x'
   }
 };
