@@ -2,15 +2,10 @@
 
 ## Team
 
-* **Product Owner**
-  * [David Tsai](https://github.com/tsaiDavid)
-* **Scrum Master**
-  * [Bjarke Staun](https://github.com/bjarkestaun)
-* **Development Team**
-  * [Anna Rogers](https://github.com/muddybarefeet)
-  * [Aaron Ackerman](https://github.com/aackerman050)
-  * [Bjarke Staun](https://github.com/bjarkestaun)
-  * [David Tsai](https://github.com/tsaiDavid)
+Fawn Bertram
+Soroush Mehraein
+Yifeng Wang
+Colin Seale
 
 ## Tech Overview
 
