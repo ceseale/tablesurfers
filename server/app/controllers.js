@@ -1,6 +1,5 @@
 var database = require('../config/db');
 var Promise = require('bluebird');
-var objectify = require('./../classes/controllerClasses'); //remove?
 
 module.exports = {
   user: {
@@ -44,6 +43,7 @@ module.exports = {
 
     // TODO: Perhaps rename to getAll?
     get: function (data) {
+
       return database.Meal.findAll({ include: [database.User, database.Restaurant]})
         .then(function (meals) {
           //use the bluebird promise functions
@@ -57,11 +57,13 @@ module.exports = {
           //make an object to send back
           var obj = [];
           meals.map(function(meal, i) {
-            obj.push(new objectify.restaurantData(meal)); //update to not use objectify?
+            obj.push(meal.meal.dataValues);
           });
-          // console.log('----------',meals);
           return obj;
-        });
+        })
+        .catch(function(err){
+          console.error(err);
+        })
     },
 
     getOne: function (data) {
