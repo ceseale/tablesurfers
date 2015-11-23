@@ -13,11 +13,12 @@ module.exports = function (url, app, dbController) {
     if (!req.body.name) {
       res.sendStatus(400);
     } else {
-      dbController.user.post(req.body)
-      .then(function(data) {
+      return dbController.user.post(req.body)
+      .then(function (data) {
         res.sendStatus(201);
       })
       .catch(function(err) {
+        console.error(err);
         res.status(500).send(err); // update to sendStatus
       });
     }

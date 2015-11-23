@@ -58,7 +58,7 @@ var Meal = db.define("Meal", {
 });
 //create Users Users foreign key for meal
 User.belongsToMany(Meal, {through: "UserAndMeal"});
-Meal.belongsToMany(User, {as: "Attendee", through: "UserAndMeal"});
+Meal.belongsToMany(User, {through: "UserAndMeal"});
 
 var Restaurant = db.define("Restaurant", {
   name: {
@@ -91,15 +91,14 @@ var Restaurant = db.define("Restaurant", {
 Restaurant.hasMany(Meal);
 Meal.belongsTo(Restaurant);
 
-User.sync({force:true})
-.then(function(){
-  return Meal.sync({force:true});
-}).then(function(){
-  return Restaurant.sync({force:true});
-});
 
+db.sync();
 
+var reset = function () {
+  return db.sync({force:true});
+};
 
-exports.Meal = Meal;
 exports.User = User;
 exports.Restaurant = Restaurant;
+exports.Meal = Meal;
+exports.reset = reset;

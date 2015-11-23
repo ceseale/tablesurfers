@@ -26,7 +26,7 @@ module.exports = function(url, app, dbController) {
       })
       .catch(function(err){
         res.status(500).send(err); // update to sendStatus
-      })
+      });
     }
     })
     .put(function(req, res) { // update and write test

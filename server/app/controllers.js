@@ -16,12 +16,12 @@ module.exports = {
     },
 
     post: function (data) {
-      console.log("POST DATA---->", data); 
       return database.User.create({
         name: data.name,
         facebookId: data.facebookId
-      }).then(function (message) {
-        return message;
+      })
+      .catch(function (err) {
+        console.error("Error creating user: ", err);
       });
     },
 
@@ -33,7 +33,8 @@ module.exports = {
         userFound = user;
         return database.Meal.find({where: {description: data.description}})
         .then(function (meal) {
-           meal.addAttendee(userFound);
+          // console.log(meal);
+          meal.addUser(userFound);
         });
       });
     }
@@ -74,10 +75,8 @@ module.exports = {
 
       return database.User.find({where: {name: data.username}})
         .then(function (user) {
-          console.log("LOGGING USER", user);
           return database.Restaurant.findOrCreate({where: {name: data.restaurant}, defaults:  {name: data.name, address: data.address, contact: data.contact, lat: data.lat, lng: data.lng, cuisine: data.cuisine}})
             .then(function (restaurant) {
-              console.log("LOGGING Restaurant");
               return database.Meal.create({
                 title: data.title,
                 date: data.date,
