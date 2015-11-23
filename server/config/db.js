@@ -22,11 +22,11 @@ var Meal = db.define("Meal", {
     allowNull: false
   },
   date: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING, // DATE
     allowNull: false
   },
   time: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING, //TIME
     allowNull: false
   },
   description: Sequelize.STRING,
@@ -49,7 +49,10 @@ var Restaurant = db.define("Restaurant", {
   contact: Sequelize.STRING,
   lat:     Sequelize.FLOAT,
   lng:     Sequelize.FLOAT,
-  cuisine: Sequelize.STRING
+  cuisine: Sequelize.STRING,
+  image_url: Sequelize.STRING,
+  url:     Sequelize.STRING
+  }
 });
 
 Restaurant.hasMany(Meal);

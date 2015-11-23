@@ -14,7 +14,28 @@
     self.simulateQuery = false;
     self.isDisabled = false;
     //below is a hack for testing, we are struggling to access facebook auth username from client side
-    self.meal = {username: 'aackerman'};
+    self.meal = {
+      host: {
+        facebookId: '12121'
+      },
+      meal: {
+        title: "Men's Lunch",
+        date: "12/7/15",
+        time: "12:00pm",
+        theme: "Hack Reactor Lunch for Men"
+      },
+      restaurant: {
+        name: "Kin Khao",
+        address: "1234 Powell St.",
+        contact: "415-420-8282",
+        lat: 123.45,
+        lng: 125.89,
+        cuisine: "Thai",
+        image_url: "http://image.com/image.jpg",
+        url: "http://yelp.com/kinkhao"
+      }
+    };
+
     self.attendees = [1,2,3,4,5,6,7,8,9];
     self.selectedItem = undefined;
 
@@ -52,7 +73,7 @@
         })
         .then(function(response) {
           return self.data;
-        })
+        });
 
     };
 

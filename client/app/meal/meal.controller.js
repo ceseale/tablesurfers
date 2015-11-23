@@ -20,7 +20,7 @@
     };
 
     self.getMeal = function() {
-      var path = '/api/in';
+      var path = '/api';
       console.log('Getting users from DB, path is: ', path + $location.path());
       return $http({
         method: 'GET',

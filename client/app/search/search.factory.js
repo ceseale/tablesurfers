@@ -25,7 +25,7 @@
       console.log(data);
       return $http({
         method: 'POST',
-        url: '/api/meals',
+        url: '/api/meal',
         data: data
       })
       .then(function (response) {
