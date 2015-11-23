@@ -19,7 +19,7 @@
     self.selectedItem = undefined;
 
     self.querySearch = function(query) {
-      var path = '/api/out/yelp';
+      var path = '/api/yelp';
 
       return $http({
         url: path + '?term=' + query,

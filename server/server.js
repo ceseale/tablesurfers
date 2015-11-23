@@ -11,8 +11,8 @@ var flash         = require('connect-flash');
 var bodyParser    = require('body-parser');
 var cookieParser  = require('cookie-parser');
 var session       = require('express-session');
-var userRoutes = require('./routes/userRoutes');
-var mealRoutes = require('./routes/mealRoutes');
+var userRoutes    = require('./routes/userRoutes');
+var mealRoutes    = require('./routes/mealRoutes');
 var mealsidRoutes = require('./routes/mealsIdRoutes');
 
 // configuration ===============================================================
@@ -29,7 +29,8 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // require the routes file
-var outRouter = require('./routes/out');
+var fbRouter = require('./routes/FBauth');
+var yelpRouter = require('./routes/yelp');
 
 var dbController = require('./app/controllers');
 var isLoggedIn = require('./app/isLoggedIn');
@@ -39,9 +40,11 @@ mealsidRoutes('/api/meal/:id', app, dbController);
 mealRoutes('/api/meal', app, dbController);
 
 // require isLoggedIn method so we can use it in routes to check if user is logged in
-outRouter = outRouter(dbController, passport, isLoggedIn);
+fbRouter = fbRouter(dbController, passport, isLoggedIn);
+yelpRouter = yelpRouter(dbController, passport, isLoggedIn);
 
-app.use('/auth', outRouter);
+app.use('/auth', fbRouter);
+app.use('/api/yelp', yelpRouter);
 
 app.get('/profile', function (req, res) {
   res.redirect('http://localhost:3000/#/user/'+req.user.name);
