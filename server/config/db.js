@@ -8,30 +8,12 @@ var User = db.define("User", {
     type: Sequelize.STRING,
     allowNull: false
   },
-  facebookId: {
-    type: Sequelize.BIGINT,
-    allowNull: true
-  },
-  token: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  profilePic: {
-    type: Sequelize.BLOB, // BLOB turns into bytea for PostgreSQL. Can also specify BLOB('tiny') or medium or long
-    allowNull: true
-  },
-  gender: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  job: {
-    type: Sequelize.STRING,
-    allowNull: true
-  }
+  facebookId: Sequelize.BIGINT,
+  token:      Sequelize.STRING,
+  email:      Sequelize.STRING,
+  profilePic: Sequelize.BLOB,
+  gender:     Sequelize.STRING,
+  job:        Sequelize.STRING
 });
 
 var Meal = db.define("Meal", {
@@ -47,15 +29,10 @@ var Meal = db.define("Meal", {
     type: Sequelize.STRING,
     allowNull: false
   },
-  description: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  theme: {
-    type: Sequelize.STRING,
-    allowNull: true
-  }
+  description: Sequelize.STRING,
+  theme:       Sequelize.STRING,
 });
+
 //create Users Users foreign key for meal
 User.belongsToMany(Meal, {through: "UserAndMeal"});
 Meal.belongsToMany(User, {through: "UserAndMeal"});
@@ -65,40 +42,23 @@ var Restaurant = db.define("Restaurant", {
     type: Sequelize.STRING,
     allowNull: false
   },
-  address: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-    allowNull: false
-  },
-  contact: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  lat: {
-    type: Sequelize.FLOAT,
-    allowNull: false
-  },
-  lng: {
-    type: Sequelize.FLOAT,
-    allowNull: false
-  },
-  cuisine: {
-    type: Sequelize.STRING,
-    allowNull: true
-  }
-
+  address: Sequelize.ARRAY(Sequelize.STRING),
+  contact: Sequelize.STRING,
+  lat:     Sequelize.FLOAT,
+  lng:     Sequelize.FLOAT,
+  cuisine: Sequelize.STRING
 });
 
 Restaurant.hasMany(Meal);
 Meal.belongsTo(Restaurant);
 
-
-db.sync();
-
 var reset = function () {
   return db.sync({force:true});
 };
 
-exports.User = User;
+db.sync();
+
+exports.User       = User;
 exports.Restaurant = Restaurant;
-exports.Meal = Meal;
-exports.reset = reset;
+exports.Meal       = Meal;
+exports.reset      = reset;
