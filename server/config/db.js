@@ -96,7 +96,7 @@ User.sync({force:true})
   return Meal.sync({force:true});
 }).then(function(){
   return Restaurant.sync({force:true});
-})
+});
 
 
 
