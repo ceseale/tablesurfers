@@ -76,12 +76,13 @@ module.exports = {
     post: function (data) {
       var userId;
       var restaurantId;
-      
-      return database.User.find({where: {facebookId: data.host.facebookId}}).then(function (user) {
+
+      return database.User.find({where: {facebookId: data.host.facebookId}})
+      .then(function (user) {
         userId = user.id;
         return database.Restaurant.findOrCreate({ 
           where: {name: data.restaurant.name, address: data.restaurant.address}, 
-          defaults: {name: data.restaurant.name, address: data.restaurant.address, contact: data.restaurant.contact, lat: data.restaurant.lat, lng: data.restaurant.lng, cuisine: data.restaurant.cuisine }
+          defaults: {name: data.restaurant.name, address: data.restaurant.address, contact: data.restaurant.contact, lat: data.restaurant.lat, lng: data.restaurant.lng, cuisine: data.restaurant.cuisine, image_url: data.restaurant.image_url, url: data.restaurant.url }
         });
       })
       .then(function (restaurant) {
@@ -95,6 +96,7 @@ module.exports = {
           time: data.meal.time,
           description: data.meal.description,
           theme: data.meal.theme,
+          attendeeLimit: data.meal.attendeeLimit,
           RestaurantId: restaurantId,
           HostId: userId
         });
