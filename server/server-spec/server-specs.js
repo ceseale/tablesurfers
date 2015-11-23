@@ -4,18 +4,13 @@ var assert = require('assert');
 var Mocha = require('mocha');
 var expect = require('chai').expect;
 var db = require('../config/db');
-var Sequelize = require("sequelize");
-var connectionString = process.env.DATABASE_URL || 'postgres://admin:admin@localhost:5432/tablesurfer';
-var sequelize = new Sequelize(connectionString);
 
 describe("User insertion to database", function() {
-
   // Tests are self contained, so though we need resolveWithFullResponse to test here, we do not need to replicate it in actual server/db
   var obj = {
-      name: "Roger Fung",
-      facebookId: 752345235364236
+    name: "Roger Fung",
+    facebookId: 752345235364236
   };
-
 
   before(function () {
     return db.reset();
@@ -47,7 +42,7 @@ describe("User insertion to database", function() {
       expect(res[0].name).to.equal("Roger Fung"); // first entry in DB
       expect(res[0].facebookId).to.equal('752345235364236');
     }).catch(function (err) {
-        console.error(err);
+      console.error(err);
     });
   });
     
@@ -55,8 +50,7 @@ describe("User insertion to database", function() {
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/user", body: {title: ""}, json: true})
     .catch(function (err) {
       expect(err.statusCode).to.equal(400);
-    });
-    
+    });   
   });
 
   it("Should return a 201 when data is successfully added to database", function () {
@@ -70,8 +64,8 @@ describe("User insertion to database", function() {
     
   });
 });
-describe("Meals insertion to database", function() {
 
+describe("Meals insertion to database", function() {
   var obj = {
     name: "Super Duper",
     address: ["Hot Cakes Lane USA"],
@@ -86,8 +80,8 @@ describe("Meals insertion to database", function() {
     description: "Ethiopian beet salad is a tangy and delicious combination of marinated beets, spice, and sometimes potatoes and carrots."
   };
   var user = {
-      name: "Colin",
-      facebookId: 5243653562365
+    name: "Colin",
+    facebookId: 5243653562365
   };
 
   before(function () {
@@ -98,12 +92,10 @@ describe("Meals insertion to database", function() {
   });
 
   it("Should have return an error (400) status for sending wrong data", function () { 
-  
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: {title: ""}, json: true})
     .catch(function (err) {
       expect(err.statusCode).to.equal(400);
     });
-    
   });
 
   it("Should have return an 201 when data gets successfully added to database", function () { 
@@ -116,7 +108,6 @@ describe("Meals insertion to database", function() {
     
   });
 
-
   it("Should persist data to database", function () { 
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: obj, json: true, resolveWithFullResponse: true})
     .then(function (res) {
@@ -125,7 +116,6 @@ describe("Meals insertion to database", function() {
       console.error(err);
     });  
   });
-
 
   it("Should select data by id", function () { 
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: obj, json: true})
