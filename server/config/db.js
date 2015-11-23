@@ -22,15 +22,16 @@ var Meal = db.define("Meal", {
     allowNull: false
   },
   date: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING, // DATE
     allowNull: false
   },
   time: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING, //TIME
     allowNull: false
   },
   description: Sequelize.STRING,
   theme:       Sequelize.STRING,
+  attendeeLimit: Sequelize.INTEGER
 });
 
 //create Users Users foreign key for meal
@@ -41,15 +42,17 @@ User.hasMany(Meal);
 Meal.belongsTo(User, {as: "host"});
 
 var Restaurant = db.define("Restaurant", {
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
+  name:   {
+            type: Sequelize.STRING,
+            allowNull: false
+          },
   address: Sequelize.ARRAY(Sequelize.STRING),
   contact: Sequelize.STRING,
   lat:     Sequelize.FLOAT,
   lng:     Sequelize.FLOAT,
-  cuisine: Sequelize.STRING
+  cuisine: Sequelize.STRING,
+  image_url: Sequelize.STRING,
+  url:     Sequelize.STRING
 });
 
 Restaurant.hasMany(Meal);

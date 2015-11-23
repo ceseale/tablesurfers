@@ -63,7 +63,7 @@ module.exports = {
         })
         .catch(function(err){
           console.error(err);
-        })
+        });
     },
 
     getOne: function (data) {
@@ -80,11 +80,11 @@ module.exports = {
       return database.User.find({where: {facebookId: data.host.facebookId}})
       .then(function (user) {
         userId = user.id;
-        return database.Restaurant.findOrCreate({ 
+        return database.Restaurant.findOrCreate({
           where: {
             name: data.restaurant.name,
             address: data.restaurant.address
-          }, 
+          },
           defaults: {
             name: data.restaurant.name,
             address: data.restaurant.address,
@@ -117,7 +117,5 @@ module.exports = {
         console.error('POST MEAL ERROR', err);
       });
     }
-  },
-  restaurants: {},
-  cuisine: {}
+  }
 };

@@ -16,10 +16,9 @@ module.exports = function(url, app, dbController) {
       var meal = req.body;
       // //if the values are not valid then send err
 
-      if (!meal.description) {
+      if (!meal.description||!meal.title||!meal.date||!meal.time) {
         res.sendStatus(400);
-      }
-      else{
+      } else {
       dbController.meals.post(meal)
       .then(function(data){
         res.sendStatus(201);

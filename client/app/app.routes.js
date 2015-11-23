@@ -30,7 +30,7 @@
       })
       // When you're linked to a unique id in a meal, we render the page
       .state('meal', {
-        url: '/meals/:id',
+        url: '/meal/:id',
         templateUrl: 'app/meal/meal.html',
         controller: 'MealCtrl'
       });
