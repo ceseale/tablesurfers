@@ -22,7 +22,8 @@
         title: "Men's Lunch",
         date: "12/7/15",
         time: "12:00pm",
-        theme: "Hack Reactor Lunch for Men"
+        theme: "Hack Reactor Lunch for Men",
+        attendeeLimit: 9
       },
       restaurant: {
         name: "Kin Khao",
