@@ -17,6 +17,19 @@ var mealsidRoutes = require('./routes/mealsIdRoutes');
 
 // configuration ===============================================================
 
+app.use(function(req, res, next) {
+res.header('Access-Control-Allow-Credentials', 'true');
+res.header('Access-Control-Allow-Origin', req.headers.origin);
+res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+if ('OPTIONS' == req.method) {
+     res.send(200);
+ } else {
+     next();
+ }
+});
+
+
 require('./config/passport')(passport); // pass passport for configuration
 
 // set up our express application
@@ -47,7 +60,8 @@ app.use('/auth', fbRouter);
 app.use('/api/yelp', yelpRouter);
 
 app.get('/profile', function (req, res) {
-  res.redirect('http://localhost:3000/#/user/'+req.user.name);
+  console.log(req);
+  res.redirect('http://localhost:3000/#/user/'+req.user.facebookId);
 });
 
 app.use(express.static(path.join(__dirname, '/../client')));

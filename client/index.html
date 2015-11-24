@@ -26,12 +26,16 @@
               <md-tab ui-sref="user" id="user/user.html" aria-controls="Tab 3">
                 <md-tab-label>Account</md-tab-label>
               </md-tab>
-
+              <!-- nav tab button for login page -->
+              <md-tab ui-sref="login" id="user/user.html" aria-controls="Tab 3">
+                <md-tab-label>Login</md-tab-label>
+              </md-tab>
+<!-- 
               <md-tab class="" id="facebook" aria-controls="Tab 4">
-                <a href="/api/out/auth/facebook">
+                <a href="/auth/facebook">
                   <img class="facebook-img" src="http://i.stack.imgur.com/LKMP7.png" alt="" />
                 </a>
-              </md-tab>
+              </md-tab> -->
 
            </md-tabs>
        </div>
@@ -70,6 +74,8 @@
     <script src="app/user/user.factory.js" charset="utf-8"></script>
     <script src="app/meal/meal.controller.js" charset="utf-8"></script>
     <script src="app/meal/meal.factory.js" charset="utf-8"></script>
+    <script src="app/login/login.controller.js" charset="utf-8"></script>
+    <script src="app/login/login.factory.js" charset="utf-8"></script>
     <!-- js inject end -->
 
   </body>
