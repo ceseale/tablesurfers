@@ -32,7 +32,6 @@ module.exports = function(url, app, dbController) {
 
       //user joining an event
       var join = req.body;
-      console.log(join);
       dbController.user.joinMeal(join)
       .then(function(data) {
         res.status(200).send(data);
