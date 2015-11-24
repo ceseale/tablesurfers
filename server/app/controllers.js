@@ -28,11 +28,10 @@ module.exports = {
     joinMeal: function(data) {
       var userFound;
       return database.User.find({ where: {name: data.name, facebookId: data.facebookId} })
-      .then(function(user) {
+      .then(function (user) {
         userFound = user;
         return database.Meal.find({where: {description: data.description}})
         .then(function (meal) {
-          // console.log(meal);
           meal.addUser(userFound);
         });
       });
@@ -77,11 +76,10 @@ module.exports = {
       var userId;
       var restaurantId;
 
-      console.log("POST MEAL DATA--->", data);
-
       return database.User.find({where: {facebookId: data.host.facebookId}})
       .then(function (user) {
         userId = user.id;
+        console.log(database.Restaurant.findOrCreate);
         return database.Restaurant.findOrCreate({
           where: {
             name: data.restaurant.name,
@@ -99,11 +97,8 @@ module.exports = {
           }
         });
       })
-      .then(function (restaurant) {
+      .spread(function (restaurant) {
         restaurantId = restaurant.id;
-        return;
-      })
-      .then(function () {
         return database.Meal.create({
           title: data.meal.title,
           date: data.meal.date,

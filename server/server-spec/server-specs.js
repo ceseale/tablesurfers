@@ -22,9 +22,6 @@ describe("User insertion to database", function() {
       return db.User.findById(1);
     }).then(function (user) {
       expect(user.name).to.equal("Roger Fung");
-    }).catch(function (err) {
-      console.error("NOT POSTING NEW USER TO DB");
-      // console.error(err);
     });
   });
   
@@ -42,9 +39,6 @@ describe("User insertion to database", function() {
     .then(function (res) {
       expect(res[0].name).to.equal("Roger Fung"); // first entry in DB
       expect(res[0].facebookId).to.equal('752345235364236');
-    }).catch(function (err) {
-      console.error("NOT RETREIVING NEW USER FROM DB");
-      // console.error(err);
     });
   });
     
@@ -60,11 +54,7 @@ describe("User insertion to database", function() {
     // this allows us to access response.statusCode in tests below. Other props can be found on response.body
     .then(function (res) {
       expect(res.statusCode).to.equal(201);
-    }).catch(function (err) {
-      console.error("NOT RETURNING 201 WHEN DATA POSTED SUCCESSFULLY");
-      // console.error(err);
     });
-    
   });
 });
 
@@ -84,7 +74,7 @@ describe("Meals insertion to database", function() {
     },
     restaurant: {
       name: "Super Duper",
-      address: "1234 Powell St.",
+      address: ["1234 Powell St."],
       contact: "415-420-8282",
       lat: 123.45,
       lng: 125.89,
@@ -107,7 +97,7 @@ describe("Meals insertion to database", function() {
   });
 
   it("Should have return an error (400) status for sending incorrect meal data", function () {
-    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: {title: ""}, json: true})
+    return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: {meal: {title: ""}}, json: true})
     .catch(function (err) {
       expect(err.statusCode).to.equal(400);
     });
@@ -117,11 +107,7 @@ describe("Meals insertion to database", function() {
     return request({method: "POST", uri: "http://127.0.0.1:3000/api/meal", body: obj, json: true, resolveWithFullResponse: true})
     .then(function (res) {
       expect(res.statusCode).to.equal(201);
-    }).catch(function(err){
-      console.error("NOT RETURNING 201 WHEN MEAL SUCCESSFULLY ADDED TO DB");
-      // console.error(err);
     });
-    
   });
 
   it("Should persist meal data to database", function () {
@@ -130,9 +116,6 @@ describe("Meals insertion to database", function() {
         return db.Restaurant.find({where: {cuisine: "American"}});
       }).then(function (restaurant) {
         expect(restaurant.cuisine).to.equal("American");
-      }).catch(function (err) {
-        console.error("DOES NOT PERSIST MEAL DATA TO DB");
-        // console.error(err);
       });
   });
 
@@ -144,9 +127,6 @@ describe("Meals insertion to database", function() {
         method: "GET", uri: "http://127.0.0.1:3000/api/meal/1", json: true});
     }).then(function (res) {
       expect(res.title).to.equal("Men's Lunch");
-    }).catch(function (err) {
-      console.error("DOES NOT SELECT MEAL BY ID");
-      // console.error(err);
     });
   });
 
@@ -161,26 +141,20 @@ describe("Meals insertion to database", function() {
       return db.Meal.findAll();
     }).then(function (resp) {
       expect(resp.length).to.equal(13);
-    }).catch(function (err) {
-      console.error("DOES NOT GET ALL MEALS IN DB");
-      // console.error(err);
     });
     
   });
 
   it("Should add a user to a meal", function () {
-    var putObj = { name : "Colin" , facebookId : 5243653562365, description : obj.description };
+    var putObj = { name : "Colin" , facebookId : 5243653562365, description : obj.meal.description };
 
     return request({method:"PUT", uri: "http://127.0.0.1:3000/api/meal", body: putObj, json: true, resolveWithFullResponse: true})
     .then(function (data) {
-      return db.Meal.find( { where : { description : obj.description } } );
+      return db.Meal.find( { where : { description : obj.meal.description } } );
     }).then(function (meal) {
       return meal.getUsers();
     }).then(function (users) {
       expect(users[0].dataValues.name).to.equal('Colin');
-    }).catch(function (err) {
-      console.error("NOT NOT ADD A USER TO A MEAL");
-      // console.error(err);
     });
   });
 
