@@ -35,7 +35,6 @@ module.exports = function(db, passport, isLoggedIn) {
   });
 
   router.get('/user', function(req, res) {
-    console.log("============================", req);
     res.send(req.user);
   });
   return router;
