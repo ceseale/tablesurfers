@@ -47,7 +47,6 @@ function isLoggedIn(req, res, next) { // this is the only route that is middlewa
   // "next" will be the last function in a router.get/post etc request, and isLoggedIn will be added as a middle param
   // e.g. router.get('/accounts', isLoggedIn, function(req, res) {...});
   // if user is authenticated in the session, carry on
-  console.log("============================");
   if (req.isAuthenticated())
     return next();
   // if they aren't redirect them to the home page
