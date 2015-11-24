@@ -16,14 +16,15 @@
     //below is a hack for testing, we are struggling to access facebook auth username from client side
     self.meal = {
       host: {
-        facebookId: '12121'
+        facebookId: 752345235364236
       },
       meal: {
         title: "Men's Lunch",
         date: "12/7/15",
         time: "12:00pm",
         theme: "Hack Reactor Lunch for Men",
-        attendeeLimit: 9
+        attendeeLimit: 9,
+        description: "Ethiopian beet salad is a tangy and delicious combination of marinated beets, spice, and sometimes potatoes and carrots."
       },
       restaurant: {
         name: "Kin Khao",
