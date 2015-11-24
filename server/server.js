@@ -47,7 +47,8 @@ app.use('/auth', fbRouter);
 app.use('/api/yelp', yelpRouter);
 
 app.get('/profile', function (req, res) {
-  res.redirect('http://localhost:3000/#/user/'+req.user.name);
+  console.log(req);
+  res.redirect('http://localhost:3000/#/user/'+req.user.facebookId);
 });
 
 app.use(express.static(path.join(__dirname, '/../client')));

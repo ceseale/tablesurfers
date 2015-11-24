@@ -88,5 +88,14 @@
 
     };
 
+    self.showToken = function () {
+      // console.log(self.meal);
+      searchFactory.postMeal(self.meal)
+      .then(function(response) {
+        $window.location = '/#/home';
+      });
+
+    };
+
 }
 })();

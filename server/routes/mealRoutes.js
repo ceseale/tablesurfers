@@ -13,13 +13,13 @@ module.exports = function(url, app, dbController) {
     })
     .post(function(req, res) {
       //make an object of all the values that we need
-      var meal = req.body;
+      var meal = req.body.meal;
       // //if the values are not valid then send err
 
       if (!meal.description||!meal.title||!meal.date||!meal.time) {
         res.sendStatus(400);
       } else {
-      dbController.meals.post(meal)
+      dbController.meals.post(req.body)
       .then(function(data){
         res.sendStatus(201);
       })
@@ -32,12 +32,12 @@ module.exports = function(url, app, dbController) {
 
       //user joining an event
       var join = req.body;
-
       dbController.user.joinMeal(join)
       .then(function(data) {
         res.status(200).send(data);
       })
       .catch(function(err) {
+        console.error(err);
         res.status(500).send(err);
       });
 
