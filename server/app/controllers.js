@@ -77,6 +77,8 @@ module.exports = {
       var userId;
       var restaurantId;
 
+      console.log("POST MEAL DATA--->", data);
+
       return database.User.find({where: {facebookId: data.host.facebookId}})
       .then(function (user) {
         userId = user.id;
