@@ -79,7 +79,6 @@ module.exports = {
       return database.User.find({where: {facebookId: data.host.facebookId}})
       .then(function (user) {
         userId = user.id;
-        console.log(database.Restaurant.findOrCreate);
         return database.Restaurant.findOrCreate({
           where: {
             name: data.restaurant.name,
