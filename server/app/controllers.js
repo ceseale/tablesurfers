@@ -73,9 +73,9 @@ module.exports = {
             out.meal = meal;
             return meal.getRestaurant();
           })
-          .then(function (restaurants){
-            out.restaurants = restaurants
-            return restaurants;
+          .then(function (restaurant){
+            out.restaurant = restaurant
+            return restaurant;
           }).then(function () {
             return out;
           })
