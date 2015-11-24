@@ -33,9 +33,9 @@
         console.log(self.data);
 
         var mapCanvas = document.getElementById('map');
-        var myLatLng = {lat: self.data.meal.Restaurant.lat, lng: self.data.meal.Restaurant.lng};
+        var myLatLng = {lat: self.data.restaurant.lat, lng: self.data.restaurant.lng};
         var mapOptions = {
-          center: new google.maps.LatLng(self.data.meal.Restaurant.lat, self.data.meal.Restaurant.lng),
+          center: new google.maps.LatLng(self.data.restaurant.lat, self.data.restaurant.lng),
           zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };

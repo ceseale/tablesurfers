@@ -66,10 +66,18 @@ module.exports = {
     },
 
     getOne: function (data) {
+      var out = {};
       return database.Meal.find({ where: {id: data}})
           .then(function (meal) {
-              return meal;
-          });
+            out.meal = meal;
+            return meal.getRestaurant();
+          })
+          .then(function (restaurant){
+            out.restaurant = restaurant
+            return restaurant;
+          }).then(function () {
+            return out;
+          })
         },
 
     post: function (data) {
