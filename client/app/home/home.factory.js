@@ -11,7 +11,8 @@
     var services = {
       
       getMeals : getMeals,
-      getEvent : getEvent
+      getEvent : getEvent,
+      joinMeal : joinMeal
 
     };
 
@@ -41,6 +42,19 @@
       });
     }
 
+    function joinMeal (data) {
+      return $http({
+        method: 'PUT',
+        url: '/api/meal',
+        data: data
+      })
+      .then(function () {
+        console.log("Join meal successfully!");
+      })
+      .catch(function (err) {
+        console.log("ERR JOIN MEAL", err);
+      });
+    }
 
   }
 
