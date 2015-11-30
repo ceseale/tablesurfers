@@ -14,10 +14,26 @@
     };
 
     self.init = function() {
-      return self.getUser()
-      .then(function (user) {
-        self.user = user.data;
-      });
+      var windowUserName = sessionStorage.getItem('name');
+      var windowProfilePic = sessionStorage.getItem('profilePic');
+      var windowFacebookId = sessionStorage.getItem('facebookId');
+      if (!windowUserName || !windowProfilePic || !windowFacebookId) {
+        return self.getUser()
+        .then(function (user) {
+          sessionStorage.setItem('name', user.data.name);
+          sessionStorage.setItem('profilePic', user.data.profilePic);
+          sessionStorage.setItem('facebookId', user.data.facebookId);
+          self.user = user.data;
+        });
+      }
+      else {
+        var windowUser = {
+          name: windowUserName,
+          profilePic: windowProfilePic,
+          facebookId: windowFacebookId
+        };
+        self.user = windowUser;
+      }
     };
 
     self.init();
