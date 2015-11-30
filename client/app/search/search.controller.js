@@ -14,29 +14,30 @@
     self.simulateQuery = false;
     self.isDisabled = false;
     //below is a hack for testing, we are struggling to access facebook auth username from client side
-    self.meal = {
-      host: {
-        facebookId: 752345235364236
-      },
-      meal: {
-        title: "Men's Lunch",
-        date: "12/7/15",
-        time: "12:00pm",
-        theme: "Hack Reactor Lunch for Men",
-        attendeeLimit: 9,
-        description: "Ethiopian beet salad is a tangy and delicious combination of marinated beets, spice, and sometimes potatoes and carrots."
-      },
-      restaurant: {
-        name: "Kin Khao",
-        address: "1234 Powell St.",
-        contact: "415-420-8282",
-        lat: 123.45,
-        lng: 125.89,
-        cuisine: "Thai",
-        image_url: "http://image.com/image.jpg",
-        url: "http://yelp.com/kinkhao"
-      }
-    };
+    self.meal = {};
+    self.meal.host = {};
+    self.meal.meal = {};
+    self.meal.restaurant = {};
+    // self.meal = {
+    //   meal: {
+    //     title: "Men's Lunch",
+    //     date: "12/7/15",
+    //     time: "12:00pm",
+    //     theme: "Hack Reactor Lunch for Men",
+    //     attendeeLimit: 9,
+    //     description: "Ethiopian beet salad is a tangy and delicious combination of marinated beets, spice, and sometimes potatoes and carrots."
+    //   },
+    //   restaurant: {
+    //     name: "Kin Khao",
+    //     address: "1234 Powell St.",
+    //     contact: "415-420-8282",
+    //     lat: 123.45,
+    //     lng: 125.89,
+    //     cuisine: "Thai",
+    //     image_url: "http://image.com/image.jpg",
+    //     url: "http://yelp.com/kinkhao"
+    //   }
+    // };
 
     self.attendees = [1,2,3,4,5,6,7,8,9];
     self.selectedItem = undefined;
@@ -80,8 +81,13 @@
     };
 
     self.add = function () {
-      // console.log(self.meal);
-      searchFactory.postMeal(self.meal)
+      self.meal.restaurant.cuisine = self.meal.restaurant.categories[0][0];
+      self.meal.restaurant.lat = self.meal.restaurant.coordinate.lat;
+      self.meal.restaurant.lng = self.meal.restaurant.coordinate.lng;
+      self.meal.restaurant.address = self.meal.restaurant.display_address;
+      self.meal.restaurant.contact = self.meal.restaurant.phone;
+
+      return searchFactory.postMeal(self.meal)
       .then(function(response) {
         $window.location = '/#/home';
       });
@@ -97,5 +103,17 @@
 
     };
 
+    self.init = function () {
+      var fbId = sessionStorage.getItem('facebookId');
+      if (!fbId) {
+        $window.location = '/#/home';
+      }
+      else {
+        self.meal.host.facebookId = fbId;
+      }
+
+    };
+
+    self.init();
 }
 })();
