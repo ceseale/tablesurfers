@@ -27,7 +27,7 @@ module.exports = {
     //for a user joining a meal
     joinMeal: function(data) {
       var userFound;
-      return database.User.find({ where: {name: data.name, facebookId: data.facebookId} })
+      return database.User.find({ where: {facebookId: data.facebookId} })
       .then(function (user) {
         userFound = user;
         return database.Meal.find({where: {description: data.description}})
