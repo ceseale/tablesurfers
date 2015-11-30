@@ -4,10 +4,10 @@
   <!-- <h5> You are currently visiting meal: {{ meal.id }} </h5> -->
 
   <div style="text-align:left">
-    <div><strong>Host Name: </strong>{{meal.data.meal.User.username}}</div><br>
-    <div><strong>Location: </strong>{{meal.data.meal.Restaurant.address}}</div><br>
+    <div><strong>Host Name: </strong>{{meal.data.attendees[0].name}}</div><br>
+    <div><strong>Location: </strong>{{meal.data.restaurant.address[0]}}</div><br>
     <div><strong>Event Time: </strong>{{meal.data.meal.time}} </div><br>
-    <div><strong>Attendees: </strong>{{meal.data.attendees}} </div><br>
+    <div><strong>Attendees: </strong> <p ng-repeat="attendee in meal.data.attendees"> {{attendee.name}} </p> </div><br>
     <div><strong>Description: </strong>{{meal.data.meal.description}}</div><br>
   </div>
   <div id='map' style="height:350px"></div>
