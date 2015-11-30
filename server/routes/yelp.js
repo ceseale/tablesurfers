@@ -51,7 +51,7 @@ module.exports = function(db, passport, isLoggedIn) {
 
   var router = express.Router();
 
-router.get('/', function(req, res) {
+  router.get('/', function(req, res) {
     // set Yelp Search API params
     var params = {
       term: req.query.term,

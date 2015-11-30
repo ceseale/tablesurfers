@@ -72,7 +72,7 @@ module.exports = {
             out.meal = meal;
             return meal.getRestaurant();
           })
-          .then(function (restaurant) {
+          .then(function (restaurant){
             out.restaurant = restaurant;
             return restaurant;
           }).then(function () {
@@ -108,6 +108,7 @@ module.exports = {
         });
       })
       .spread(function (restaurant) {
+        console.log(restaurant);
         restaurantId = restaurant.id;
         return database.Meal.create({
           title: data.meal.title,

@@ -6,7 +6,7 @@
           <!-- user event details start -->
             <md-input-container flex>
               <label>Your TableSurfers Event Name</label>
-              <textarea ng-model="vm.meal.title" columns="1" rows="1"></textarea>
+              <textarea ng-model="vm.meal.meal.title" columns="1" rows="1"></textarea>
             </md-input-container>
 
             <!-- md autocomplete settings + start -->
@@ -40,7 +40,7 @@
             <!-- md-datepicker, span required to prevent rolling off edge -->
             <span>
               <md-datepicker
-                ng-model="vm.meal.date"
+                ng-model="vm.meal.meal.date"
                 ng-required="true"
                 md-placeholder="Enter Date"
                 aria-haspopup="true">
@@ -49,11 +49,11 @@
 
             <!-- time input -->
             <md-input-container flex>
-              <input type="time" ng-model="vm.meal.time" placeholder="What time do you want to host?">
+              <input type="time" ng-model="vm.meal.meal.time" placeholder="What time do you want to host?">
             </md-input-container>
 
             <!-- num of attendess -->
-            <md-select ng-model="vm.meal.attendees" placeholder="How many other Surfers can join?">
+            <md-select ng-model="vm.meal.meal.attendees" placeholder="How many other Surfers can join?">
               <md-option ng-value="number" ng-repeat="number in vm.attendees">{{ number }}</md-option>
             </md-select>
 
@@ -61,11 +61,11 @@
             <!-- event desc. -->
             <md-input-container flex>
               <label>Please describe your TS meal:</label>
-              <textarea ng-model="vm.meal.description" columns="1" md-maxlength="300" rows="5"></textarea>
+              <textarea ng-model="vm.meal.meal.description" columns="1" md-maxlength="300" rows="5"></textarea>
             </md-input-container>
 
           <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-            <md-button type="submit" class="md-raised md-primary" ng-disabled="!vm.meal.title || !vm.meal.restaurant || !vm.meal.date || !vm.meal.time || !vm.meal.attendees || !vm.meal.description">Add</md-button>
+            <md-button type="submit" class="md-raised md-primary" ng-disabled="!vm.meal.meal.title || !vm.meal.restaurant || !vm.meal.meal.date || !vm.meal.meal.time || !vm.meal.meal.attendees || !vm.meal.meal.description">Add</md-button>
           </section>
         </md-card>
         <!-- user submission end -->
