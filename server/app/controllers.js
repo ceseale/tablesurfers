@@ -72,12 +72,15 @@ module.exports = {
             out.meal = meal;
             return meal.getRestaurant();
           })
-          .then(function (restaurant){
-            out.restaurant = restaurant
+          .then(function (restaurant) {
+            out.restaurant = restaurant;
             return restaurant;
           }).then(function () {
+            return out.meal.getUsers();
+          }).then(function(attendees){
+            out.attendees = attendees;
             return out;
-          })
+          });
         },
 
     post: function (data) {
