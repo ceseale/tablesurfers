@@ -11,7 +11,7 @@ var User = db.define("User", {
   facebookId: Sequelize.BIGINT,
   token:      Sequelize.STRING,
   email:      Sequelize.STRING,
-  profilePic: Sequelize.BLOB,
+  profilePic: Sequelize.STRING,
   gender:     Sequelize.STRING,
   job:        Sequelize.STRING
 });
