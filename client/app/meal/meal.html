@@ -4,7 +4,7 @@
   <!-- <h5> You are currently visiting meal: {{ meal.id }} </h5> -->
 
   <div style="text-align:left">
-    <div><strong>Host Name: </strong>{{meal.data.attendees[0].name}}</div><br>
+    <div><strong>Host Name: </strong>{{meal.data.host.name}}</div><br>
     <div><strong>Location: </strong>{{meal.data.restaurant.address[0]}}</div><br>
     <div><strong>Event Time: </strong>{{meal.data.meal.time}} </div><br>
     <div><strong>Attendees: </strong> <p ng-repeat="attendee in meal.data.attendees"> {{attendee.name}} </p> </div><br>
