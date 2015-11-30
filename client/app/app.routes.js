@@ -39,7 +39,8 @@
         templateUrl: 'app/meal/meal.html',
         controller: 'MealCtrl'
       });
-      // TODO: remove above semicolon to add more routes
+      // remove above semicolon to add more routes
+
   }
 
 })();
