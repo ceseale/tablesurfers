@@ -17,7 +17,6 @@
     self.meal = {};
     self.meal.host = {};
     self.meal.meal = {};
-    self.meal.restaurant = {};
     // self.meal = {
     //   meal: {
     //     title: "Men's Lunch",
