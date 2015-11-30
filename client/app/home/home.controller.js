@@ -23,7 +23,13 @@
 
     self.getData();
 
-
+    self.join = function (description) {
+      // get user facebookId
+      var data = {};
+      data.description = description;
+      data.facebookId = 5243653562365;
+      homeFactory.joinMeal(data);
+    };
 
   }
 
