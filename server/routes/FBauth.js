@@ -35,7 +35,12 @@ module.exports = function(db, passport, isLoggedIn) {
   });
 
   router.get('/user', function(req, res) {
-    res.send(req.user);
+    if (!req.user) {
+      res.redirect('/');
+    }
+    else {
+      res.send(req.user);
+    }
   });
   return router;
 
