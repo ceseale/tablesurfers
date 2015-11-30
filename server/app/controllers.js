@@ -77,8 +77,11 @@ module.exports = {
             return restaurant;
           }).then(function () {
             return out.meal.getUsers();
-          }).then(function(attendees){
+          }).then(function (attendees) {
             out.attendees = attendees;
+            return out.meal.getHost();
+          }).then(function (host) {
+            out.host = host;
             return out;
           });
         },
@@ -86,7 +89,6 @@ module.exports = {
     post: function (data) {
       var userId;
       var restaurantId;
-
       return database.User.find({where: {facebookId: data.host.facebookId}})
       .then(function (user) {
         userId = user.id;
@@ -108,7 +110,6 @@ module.exports = {
         });
       })
       .spread(function (restaurant) {
-        console.log(restaurant);
         restaurantId = restaurant.id;
         return database.Meal.create({
           title: data.meal.title,
@@ -118,7 +119,7 @@ module.exports = {
           theme: data.meal.theme,
           attendeeLimit: data.meal.attendeeLimit,
           RestaurantId: restaurantId,
-          HostId: userId
+          hostId: userId
         });
       })
       .catch(function (err) {
