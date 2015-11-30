@@ -43,7 +43,7 @@ module.exports = {
     // TODO: Perhaps rename to getAll?
     get: function (data) {
 
-      return database.Meal.findAll({ include: [database.User, database.Restaurant]})
+      return database.Meal.findAll() //EMPTY THIS SHIT
         .then(function (meals) {
           //use the bluebird promise functions
           return Promise.map(meals, function(meal) {
@@ -86,6 +86,9 @@ module.exports = {
     post: function (data) {
       var userId;
       var restaurantId;
+
+
+      console.log("DATA HOST IN MEAL POST:  ", data.host); 
 
       return database.User.find({where: {facebookId: data.host.facebookId}})
       .then(function (user) {

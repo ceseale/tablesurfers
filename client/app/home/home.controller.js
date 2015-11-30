@@ -14,6 +14,7 @@
       //call the factory function to get all of the meals
       homeFactory.getMeals()
       .then(function(data) {
+        console.log("HOMECONTROLLER DATA:", data); 
         self.events = data;
       });
       
