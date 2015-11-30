@@ -22,7 +22,6 @@
     }
 
     function postMeal (data) {
-      console.log(data);
       return $http({
         method: 'POST',
         url: '/api/meal',
