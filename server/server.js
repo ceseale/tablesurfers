@@ -4,6 +4,7 @@
 var express       = require('express');
 var app           = express();
 var port          = process.env.PORT || 3000;
+var baseURL       = process.env.BASE_URL || 'http://localhost:3000';
 var path          = require('path');
 var morgan        = require('morgan');
 var passport      = require('passport');
@@ -48,7 +49,7 @@ app.use('/api/yelp', yelpRouter);
 
 app.get('/profile', function (req, res) {
   console.log(req);
-  res.redirect('http://localhost:3000/#/user/'+req.user.facebookId);
+  res.redirect(baseURL+'/#/user/'+req.user.facebookId);
 });
 
 app.use(express.static(path.join(__dirname, '/../client')));

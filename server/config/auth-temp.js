@@ -1,9 +1,11 @@
+var callbackURL = process.env.FB_URL || 'http://localhost:3000/auth/facebook/callback';
+
 module.exports = {
 
   facebookAuth: {
     'clientID': 'FB_KEY',
     'clientSecret': 'FB_SECRET',
-    'callbackURL': 'http://localhost:3000/auth/facebook/callback'
+    'callbackURL': callbackURL
   },
   oauth: {
    consumer_key: 'x',
