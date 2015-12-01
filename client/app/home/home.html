@@ -8,6 +8,9 @@
     <md-card class="colour">
       <md-card-content>
         <h2 class="md-title">{{event.title}}</h2>
+        <a href="{{event.Restaurant.url}}">
+          {{event.Restaurant.name}} 
+        </a>
         <p>
           {{event.description}}
         </p>
@@ -17,6 +20,7 @@
          <p>
           {{event.time}}
         </p>
+
         <md-button ng-click="home.join(event.description)" class="md-raised md-primary" ng-disabled="!home.id">Join</md-button>
       </md-card-content>
       <md-card-actions layout="row" layout-align="end center">
