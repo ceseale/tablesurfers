@@ -32,6 +32,10 @@
         self.data = response.data;
         console.log(self.data);
 
+        self.data.meal.createdAt = new Date(self.data.meal.createdAt).toLocaleDateString();
+        self.data.meal.date = new Date(self.data.meal.date).toLocaleDateString();
+        self.data.meal.time = new Date(self.data.meal.time).toLocaleTimeString();
+
         var mapCanvas = document.getElementById('map');
         var myLatLng = {lat: self.data.restaurant.lat, lng: self.data.restaurant.lng};
         var mapOptions = {
